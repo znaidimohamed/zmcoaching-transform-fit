@@ -1,57 +1,76 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Star, Crown, Zap } from "lucide-react";
+import packSolo from "@/assets/pack-solo.jpg";
+import packBase from "@/assets/pack-base.jpg";
+import packTransformation from "@/assets/pack-transformation.jpg";
+import packElite from "@/assets/pack-elite.jpg";
 
 const PacksSection = () => {
   const packs = [
     {
       id: 1,
-      name: "Suivi Mensuel",
-      price: "89",
+      name: "Base Pack",
+      price: "80",
       period: "mois",
       icon: <Zap className="h-8 w-8 text-accent" />,
-      description: "Perfect pour commencer votre transformation",
+      image: packBase,
+      description: "Plan training 100% personnalisé + Guide nutrition",
       features: [
-        "Programme d'entraînement personnalisé",
-        "Suivi hebdomadaire",
-        "Conseils nutrition de base",
-        "Support WhatsApp",
-        "Ajustements mensuels"
+        "Plan training 100% personnalisé",
+        "Guide nutrition",
+        "Feedback hebdomadaire",
+        "Suivi en ligne"
       ],
       popular: false
     },
     {
       id: 2,
-      name: "Transformation 8 Semaines",
-      price: "149",
-      period: "8 semaines",
+      name: "Solo Pack",
+      price: "50",
+      period: "mois",
       icon: <Star className="h-8 w-8 text-accent" />,
-      description: "Le programme intensif pour des résultats rapides",
+      image: packSolo,
+      description: "Plan training ou plan nutrition 100% personnalisé",
       features: [
-        "Programme intensif personnalisé",
-        "Suivi bi-hebdomadaire",
-        "Plan nutrition détaillé",
-        "Support WhatsApp prioritaire",
-        "Séances de motivation",
-        "Garantie résultats"
+        "Plan training 100% personnalisé",
+        "OU",
+        "Plan nutrition 100% personnalisé"
+      ],
+      popular: false
+    },
+    {
+      id: 3,
+      name: "Transformation Pack",
+      price: "240",
+      period: "3 mois",
+      icon: <Crown className="h-8 w-8 text-accent" />,
+      image: packTransformation,
+      description: "Plan training évolutif sur 3 mois + Plan nutrition flexible",
+      features: [
+        "Plan training évolutif sur 3 mois",
+        "Plan nutrition flexible + suivi macros",
+        "Feedback chaque semaine",
+        "Corrections vidéo incluses"
       ],
       popular: true
     },
     {
-      id: 3,
-      name: "Pack Premium",
-      price: "199",
-      period: "mois",
+      id: 4,
+      name: "Elite Pack",
+      price: "360",
+      period: "3 mois",
       icon: <Crown className="h-8 w-8 text-accent" />,
-      description: "L'expérience complète coaching + nutrition",
+      image: packElite,
+      description: "Plan training évolutif sur 3 mois + Nutrition flexible + Séances 1v1",
       features: [
-        "Coaching personnalisé complet",
-        "Suivi quotidien",
-        "Plan nutrition sur mesure",
-        "Recettes personnalisées",
-        "Support 24/7",
-        "Appels vidéo hebdomadaires",
-        "Ajustements en temps réel"
+        "Plan training évolutif sur 3 mois",
+        "Nutrition flexible + suivi macros",
+        "Ajustement réguliers",
+        "Réajustement du plan chaque mois selon l'évolution",
+        "Corrections vidéo incluses",
+        "12 séances 1v1",
+        "Support WhatsApp prioritaire au quotidien"
       ],
       popular: false
     }
@@ -77,7 +96,7 @@ const PacksSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {packs.map((pack) => (
             <Card 
               key={pack.id} 
@@ -93,18 +112,22 @@ const PacksSection = () => {
                 </div>
               )}
               
-              <CardHeader className={`text-center ${pack.popular ? 'pt-12' : 'pt-6'}`}>
-                <div className="mx-auto mb-4 p-3 bg-accent/10 rounded-full w-fit">
-                  {pack.icon}
-                </div>
-                <CardTitle className="text-2xl font-bold text-primary">
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={pack.image} 
+                  alt={pack.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className={`text-center ${pack.popular ? 'pt-8' : 'pt-6'}`}>
+                <CardTitle className="text-xl font-bold text-primary">
                   {pack.name}
                 </CardTitle>
-                <CardDescription className="text-muted-foreground">
+                <CardDescription className="text-muted-foreground text-sm">
                   {pack.description}
                 </CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-primary">{pack.price}</span>
+                  <span className="text-3xl font-bold text-primary">{pack.price}</span>
                   <span className="text-lg text-muted-foreground ml-1">DT</span>
                   <div className="text-sm text-muted-foreground">/{pack.period}</div>
                 </div>
