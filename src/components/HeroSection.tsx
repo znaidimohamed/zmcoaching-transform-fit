@@ -24,14 +24,13 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Transformez
-            <span className="block text-accent">Votre Corps</span>
+            Power
+            <span className="block text-accent">& Performance</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-            Coaching sportif personnalisé en ligne avec 
-            <span className="text-accent font-semibold"> Mohamed Znaidy</span>. 
-            Programmes d'entraînement et nutrition adaptés à vos objectifs.
+            <span className="text-accent font-semibold">Online Coaching</span><br />
+            Nutrition plans & training programs adapted to your lifestyle
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">

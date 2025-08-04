@@ -13,6 +13,7 @@ const PacksSection = () => {
       name: "Base Pack",
       price: "80",
       period: "mois",
+      originalPrice: "160",
       icon: <Zap className="h-8 w-8 text-accent" />,
       image: packBase,
       description: "Plan training 100% personnalisé + Guide nutrition",
@@ -22,57 +23,65 @@ const PacksSection = () => {
         "Feedback hebdomadaire",
         "Suivi en ligne"
       ],
-      popular: false
+      popular: false,
+      discount: "50% off your first month!"
     },
     {
       id: 2,
       name: "Solo Pack",
       price: "50",
       period: "mois",
+      originalPrice: "100",
       icon: <Star className="h-8 w-8 text-accent" />,
       image: packSolo,
-      description: "Plan training ou plan nutrition 100% personnalisé",
+      description: "Plan training 100% personnalisé OU Plan nutrition 100% personnalisé",
       features: [
         "Plan training 100% personnalisé",
         "OU",
         "Plan nutrition 100% personnalisé"
       ],
-      popular: false
+      popular: false,
+      discount: null
     },
     {
       id: 3,
       name: "Transformation Pack",
       price: "240",
       period: "3 mois",
+      originalPrice: "480",
       icon: <Crown className="h-8 w-8 text-accent" />,
       image: packTransformation,
-      description: "Plan training évolutif sur 3 mois + Plan nutrition flexible",
+      description: "Plan training évolutif sur 3 mois + Plan nutrition flexible + suivi macros",
       features: [
         "Plan training évolutif sur 3 mois",
         "Plan nutrition flexible + suivi macros",
         "Feedback chaque semaine",
         "Corrections vidéo incluses"
       ],
-      popular: true
+      popular: true,
+      discount: "50% off your first month!"
     },
     {
       id: 4,
       name: "Elite Pack",
       price: "360",
       period: "3 mois",
+      originalPrice: "720",
       icon: <Crown className="h-8 w-8 text-accent" />,
       image: packElite,
-      description: "Plan training évolutif sur 3 mois + Nutrition flexible + Séances 1v1",
+      description: "Plan training évolutif sur 3 mois + Nutrition flexible + 12 séances 1v1",
       features: [
         "Plan training évolutif sur 3 mois",
         "Nutrition flexible + suivi macros",
         "Ajustement réguliers",
         "Réajustement du plan chaque mois selon l'évolution",
         "Corrections vidéo incluses",
-        "12 séances 1v1",
-        "Support WhatsApp prioritaire au quotidien"
+        "12 séance 1v1",
+        "Support WhatsApp prioritair au quotidien",
+        "Bonus: Quick start guide"
       ],
-      popular: false
+      popular: false,
+      discount: "50% off your first month!"
     }
   ];
 
@@ -130,6 +139,11 @@ const PacksSection = () => {
                   <span className="text-3xl font-bold text-primary">{pack.price}</span>
                   <span className="text-lg text-muted-foreground ml-1">DT</span>
                   <div className="text-sm text-muted-foreground">/{pack.period}</div>
+                  {pack.discount && (
+                    <div className="text-xs text-accent font-semibold mt-1">
+                      {pack.discount}
+                    </div>
+                  )}
                 </div>
               </CardHeader>
 
