@@ -105,17 +105,10 @@ const NutritionSection = () => {
           <div className="relative">
             <div className="aspect-square overflow-hidden rounded-2xl shadow-2xl">
               <img 
-                src={nutritionImage}
-                alt="Plans nutritionnels ZM Coaching"
+                src="/lovable-uploads/1d0ab68e-6688-4d55-9494-9c1ceb200ade.png"
+                alt="50+ Recettes disponibles"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20"></div>
-            </div>
-            <div className="absolute -top-6 -left-6 bg-accent text-accent-foreground p-6 rounded-xl shadow-lg">
-              <div className="text-center">
-                <div className="text-3xl font-bold">200+</div>
-                <div className="text-sm">Recettes disponibles</div>
-              </div>
             </div>
           </div>
         </div>

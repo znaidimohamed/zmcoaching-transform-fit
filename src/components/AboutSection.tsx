@@ -6,12 +6,12 @@ const AboutSection = () => {
   const achievements = [
     {
       icon: <Users className="h-6 w-6 text-accent" />,
-      number: "500+",
+      number: "100+",
       label: "Clients transformés"
     },
     {
       icon: <Award className="h-6 w-6 text-accent" />,
-      number: "3 ans",
+      number: "7 ans",
       label: "d'expérience"
     },
     {

@@ -10,33 +10,63 @@ const TransformationsSection = () => {
   const transformations = [
     {
       id: 1,
-      name: "Sarah K.",
-      age: 28,
-      duration: "3 mois",
-      weightLoss: "-12kg",
-      image: transformationImage,
-      description: "Incroyable transformation après grossesse. Programme adapté et suivi personnalisé.",
-      testimonial: "Mohamed m'a aidée à retrouver confiance en moi. Les résultats parlent d'eux-mêmes !"
+      name: "Zakaria",
+      age: 0,
+      duration: "3 ans",
+      weightChange: "61.5kg → 77kg",
+      image: "/lovable-uploads/4335f17a-0acd-4239-9fff-d34f7fd7cdd1.png",
+      description: "Ma propre transformation",
+      testimonial: "Ma transformation personnelle qui m'a mené à devenir coach professionnel."
     },
     {
       id: 2,
-      name: "Ahmed M.",
+      name: "Med Ali",
       age: 35,
-      duration: "4 mois",
-      weightLoss: "-18kg",
-      image: transformationImage,
-      description: "Perte de poids spectaculaire avec un programme adapté à son emploi du temps chargé.",
-      testimonial: "Grâce au coaching de Mohamed, j'ai retrouvé ma forme d'il y a 10 ans !"
+      duration: "6 mois",
+      weightChange: "74kg → 65.7kg",
+      image: "/lovable-uploads/bdff8ee9-7a8a-4dd1-8b76-318b9896d3b6.png",
+      description: "Transformation de perte de poids",
+      testimonial: "Grâce à ZM Coaching, j'ai atteint mes objectifs de perte de poids."
     },
     {
       id: 3,
-      name: "Leila B.",
-      age: 24,
+      name: "Ghassen",
+      age: 0,
+      duration: "8 mois",
+      weightChange: "61.5kg → 77kg",
+      image: "/lovable-uploads/b96dd092-57ba-4896-9806-dac59473b2e1.png",
+      description: "Prise de masse musculaire",
+      testimonial: "Transformation impressionnante avec un gain de masse musculaire significatif."
+    },
+    {
+      id: 4,
+      name: "Mohamed",
+      age: 0,
+      duration: "5 mois",
+      weightChange: "84kg → 79.5kg",
+      image: "/lovable-uploads/dac3d974-ebd8-4d53-9540-da10a8673da0.png",
+      description: "Rééquilibrage corporel",
+      testimonial: "Excellent suivi pour atteindre mes objectifs de remise en forme."
+    },
+    {
+      id: 5,
+      name: "Tarek",
+      age: 0,
       duration: "6 mois",
-      weightLoss: "-15kg",
-      image: transformationImage,
-      description: "Transformation complète lifestyle avec nutrition et sport.",
-      testimonial: "Un coach exceptionnel qui m'a accompagnée dans tous mes objectifs."
+      weightChange: "87kg → 82kg",
+      image: "/lovable-uploads/1b4b5b73-5ba9-48b8-831d-7d6b91d9b120.png",
+      description: "Transformation physique",
+      testimonial: "Résultats visibles et durables grâce au programme personnalisé."
+    },
+    {
+      id: 6,
+      name: "Hedi",
+      age: 0,
+      duration: "7 mois",
+      weightChange: "61.5kg → 77kg",
+      image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
+      description: "Gain de masse musculaire",
+      testimonial: "Transformation complète avec un excellent accompagnement."
     }
   ];
 
@@ -122,9 +152,9 @@ const TransformationsSection = () => {
                       </div>
                       <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                         <Award className="h-6 w-6 text-accent mx-auto mb-2" />
-                        <div className="text-sm text-white/80">Perte</div>
+                        <div className="text-sm text-white/80">Évolution</div>
                         <div className="font-bold text-accent">
-                          {transformations[currentSlide].weightLoss}
+                          {transformations[currentSlide].weightChange}
                         </div>
                       </div>
                       <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
