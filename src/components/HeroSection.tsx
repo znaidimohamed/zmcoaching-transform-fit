@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
-import heroImage from "@/assets/hero-power-performance.jpg";
 
 const HeroSection = () => {
   const scrollToSection = (sectionId: string) => {
@@ -14,7 +13,7 @@ const HeroSection = () => {
     <section id="accueil" className="relative min-h-screen flex items-center pt-20">
       <div className="absolute inset-0 z-0">
         <img 
-          src={heroImage} 
+          src="/lovable-uploads/22a7dc04-5f44-46b4-8854-5c840f92a1bf.png" 
           alt="ZM Coaching - Transformation Fitness"
           className="w-full h-full object-cover"
         />
