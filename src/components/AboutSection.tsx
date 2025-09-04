@@ -27,10 +27,9 @@ const AboutSection = () => {
   ];
 
   const certifications = [
-    "Coach Sportif Certifié",
-    "Spécialiste Nutrition",
-    "Formation en Psychologie du Sport",
-    "Certified Personal Trainer (CPT)"
+    "Les Mills BodyPump Instructor – Certified Instructor for group fitness and Les Mills programs",
+    "NCSF Certified Sports Nutritionist – Certified in sports nutrition and dietary planning for athletes", 
+    "IFBB – International Federation of Bodybuilding & Fitness (certified personal trainer / coach)"
   ];
 
   const values = [
@@ -60,9 +59,11 @@ const AboutSection = () => {
             {/* Photo et présentation */}
             <div className="text-center lg:text-left">
               <div className="inline-block p-1 bg-gradient-to-r from-accent to-primary rounded-full mb-6">
-                <div className="w-48 h-48 mx-auto bg-muted rounded-full flex items-center justify-center text-6xl">
-                  👨‍💪
-                </div>
+                <img 
+                  src="/lovable-uploads/65076046-0d01-48b5-a21b-9d5815dfd5bb.png" 
+                  alt="Mohamed Znaidy - Coach Sportif"
+                  className="w-48 h-48 mx-auto rounded-full object-cover"
+                />
               </div>
               <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
                 Mohamed Znaidy
