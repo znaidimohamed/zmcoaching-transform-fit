@@ -100,7 +100,7 @@ const TransformationsSection = () => {
             <CardContent className="p-0">
               <div className="relative">
                 {/* Image principale */}
-                <div className="aspect-[1080/1350] overflow-hidden">
+                <div className="aspect-[800/500] overflow-hidden">
                   <img 
                     src={transformations[currentSlide].image}
                     alt={`Transformation ${transformations[currentSlide].name}`}
