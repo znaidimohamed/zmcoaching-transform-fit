@@ -83,7 +83,7 @@ const FreeGuideSection = () => {
                     </h3>
                     
                     <p className="text-muted-foreground mb-6">
-                      Plus de 50 pages de conseils professionnels pour transformer 
+                      6 pages de conseils professionnels pour transformer 
                       votre corps et votre mindset.
                     </p>
                     
@@ -93,7 +93,7 @@ const FreeGuideSection = () => {
                         PDF Téléchargeable
                       </span>
                       <span>•</span>
-                      <span>50+ Pages</span>
+                      <span>6 Pages</span>
                       <span>•</span>
                       <span>Gratuit</span>
                     </div>
