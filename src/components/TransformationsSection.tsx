@@ -100,7 +100,7 @@ const TransformationsSection = () => {
             <CardContent className="p-0">
               <div className="relative">
                 {/* Image principale */}
-                <div className="aspect-video md:aspect-[2/1] overflow-hidden">
+                <div className="aspect-[1080/1350] overflow-hidden">
                   <img 
                     src={transformations[currentSlide].image}
                     alt={`Transformation ${transformations[currentSlide].name}`}
@@ -113,7 +113,7 @@ const TransformationsSection = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white/80 border-0 shadow-lg"
                   onClick={prevSlide}
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -121,7 +121,7 @@ const TransformationsSection = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white/80 border-0 shadow-lg"
                   onClick={nextSlide}
                 >
                   <ChevronRight className="h-5 w-5" />
