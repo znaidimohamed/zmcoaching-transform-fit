@@ -61,8 +61,8 @@ Envoyé depuis le site ZM Coaching`;
     {
       icon: <Mail className="h-6 w-6 text-accent" />,
       title: "Email",
-      value: "zmcoaching@gmail.com",
-      action: () => window.open('mailto:zmcoaching@gmail.com', '_blank'),
+      value: "medznaidi8090@gmail,com",
+      action: () => window.open('mailto:medznaidi8090@gmail,com', '_blank'),
       description: "Réponse sous 24h"
     },
     {
