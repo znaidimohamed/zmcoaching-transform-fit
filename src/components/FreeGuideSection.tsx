@@ -3,18 +3,77 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Download, Gift, Star, Users, Target, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+import { useToast } from 'path-to-your-toast-hook'; // بدّل حسب الباث متاعك
+
+import { useToast } from "@/components/ui/use-toast";
+
 const FreeGuideSection = () => {
   const { toast } = useToast();
 
   const handleDownload = () => {
-    // For now, show a toast. You can later add the actual PDF link
+    // إظهار Toast
     toast({
       title: "Guide téléchargé !",
-      description: "Consultez votre guide de coaching gratuit.",
+      description: "Votre guide gratuit est prêt.",
     });
-    
-    // Later you can add the actual download link:
-    // window.open('/path-to-your-guide.pdf', '_blank');
+
+    // فتح أو تحميل الـPDF
+    const userChoice = window.confirm("تحب تفتح الـGuide (OK) ولا تحمّلو (Annuler)؟");
+
+    if (userChoice) {
+      // يفتح في نافذة جديدة
+      window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
+    } else {
+      // تحميل مباشر
+      const link = document.createElement('a');
+      link.href = '/PDF/ZM_coaching_guide_Francais_.pdf';
+      link.download = 'ZM_coaching_guide_Francais_.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  return (
+    <div className="flex justify-center mt-6">
+      <button 
+        onClick={handleDownload} 
+        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+      >
+        Télécharger le guide
+      </button>
+    </div>
+  );
+};
+
+export default FreeGuideSection;
+
+  };
+
+  return (
+    <div>
+      <button onClick={handleDownload} className="btn">
+        Télécharger le guide
+      </button>
+    </div>
+  );
+};
+
+export default FreeGuideSection;
+
+  };
+
+  return (
+    <div>
+      <button onClick={handleDownload} className="btn">
+        Télécharger le guide
+      </button>
+    </div>
+  );
+};
+
+export default FreeGuideSection;
+
   };
 
   const guideFeatures = [
