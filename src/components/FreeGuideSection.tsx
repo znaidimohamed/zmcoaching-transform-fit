@@ -3,64 +3,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Download, Gift, Star, Users, Target, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-import { useToast } from 'path-to-your-toast-hook'; // بدّل حسب الباث متاعك
-
-import { useToast } from "@/components/ui/use-toast";
-
 const FreeGuideSection = () => {
   const { toast } = useToast();
 
   const handleDownload = () => {
-    // Toast
+    // For now, show a toast. You can later add the actual PDF link
     toast({
       title: "Guide téléchargé !",
-      description: "Votre guide gratuit est prêt.",
+      description: "Consultez votre guide de coaching gratuit.",
     });
-
-    // فتح الـPDF مباشرة
-    window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
-  };
-
-  return (
-    <div className="flex justify-center mt-6">
-      <button 
-        onClick={handleDownload} 
-        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
-      >
-        Télécharger le guide
-      </button>
-    </div>
-  );
-};
-
-export default FreeGuideSection;
-
-  };
-
-  return (
-    <div>
-      <button onClick={handleDownload} className="btn">
-        Télécharger le guide
-      </button>
-    </div>
-  );
-};
-
-export default FreeGuideSection;
-
-  };
-
-  return (
-    <div>
-      <button onClick={handleDownload} className="btn">
-        Télécharger le guide
-      </button>
-    </div>
-  );
-};
-
-export default FreeGuideSection;
-
+    
+    // Later you can add the actual download link:
+    // window.open('/path-to-your-guide.pdf', '_blank');
   };
 
   const guideFeatures = [
