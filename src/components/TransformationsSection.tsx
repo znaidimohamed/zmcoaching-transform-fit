@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const TransformationsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   const transformations = [
     {
@@ -81,6 +83,30 @@ const TransformationsSection = () => {
     setCurrentSlide(index);
   };
 
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   return (
     <section id="transformations" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -98,21 +124,26 @@ const TransformationsSection = () => {
         <div className="max-w-4xl mx-auto">
           <Card className="overflow-hidden border-0 shadow-2xl">
             <CardContent className="p-0">
-              <div className="relative group">
-                {/* Main Image - Full Size */}
+              <div 
+                className="relative group"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                {/* Main Image - Full Size with Touch Support */}
                 <div className="overflow-hidden">
                   <img 
                     src={transformations[currentSlide].image}
                     alt={`Transformation ${transformations[currentSlide].name}`}
-                    className="w-full h-auto object-contain"
+                    className="w-full h-auto object-contain select-none"
                   />
                 </div>
 
-                {/* Navigation arrows */}
+                {/* Navigation arrows - Hidden on mobile */}
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300 hidden md:flex"
                   onClick={prevSlide}
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -120,19 +151,19 @@ const TransformationsSection = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300 hidden md:flex"
                   onClick={nextSlide}
                 >
                   <ChevronRight className="h-5 w-5" />
                 </Button>
 
-                {/* Hover Caption - Centered */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <h3 className="text-3xl font-bold mb-3 drop-shadow-lg">{transformations[currentSlide].name}</h3>
-                    <p className="text-xl font-semibold text-accent drop-shadow-lg mb-2">Avant → Après</p>
-                    <p className="text-xl font-bold drop-shadow-lg">{transformations[currentSlide].weightChange}</p>
-                    <p className="text-lg text-white/90 drop-shadow-lg">{transformations[currentSlide].duration}</p>
+                {/* Hover/Tap Caption - Centered */}
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="text-center text-white px-4">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 drop-shadow-2xl">{transformations[currentSlide].name}</h3>
+                    <p className="text-lg md:text-xl font-semibold text-accent drop-shadow-2xl mb-1 md:mb-2">Avant → Après</p>
+                    <p className="text-lg md:text-xl font-bold drop-shadow-2xl">{transformations[currentSlide].weightChange}</p>
+                    <p className="text-base md:text-lg text-white/90 drop-shadow-2xl">{transformations[currentSlide].duration}</p>
                   </div>
                 </div>
               </div>
