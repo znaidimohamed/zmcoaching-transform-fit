@@ -98,13 +98,13 @@ const TransformationsSection = () => {
         <div className="max-w-4xl mx-auto">
           <Card className="overflow-hidden border-0 shadow-2xl">
             <CardContent className="p-0">
-              <div className="relative">
-                {/* Main Image */}
-                <div className="aspect-[4/3] overflow-hidden">
+              <div className="relative group">
+                {/* Main Image - Full Size */}
+                <div className="overflow-hidden">
                   <img 
                     src={transformations[currentSlide].image}
                     alt={`Transformation ${transformations[currentSlide].name}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto object-contain"
                   />
                 </div>
 
@@ -126,12 +126,13 @@ const TransformationsSection = () => {
                   <ChevronRight className="h-5 w-5" />
                 </Button>
 
-                {/* Image Caption */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                {/* Hover Caption - Centered */}
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="text-center text-white">
-                    <h3 className="text-2xl font-bold mb-2">{transformations[currentSlide].name}</h3>
-                    <p className="text-lg font-medium text-accent">{transformations[currentSlide].weightChange}</p>
-                    <p className="text-sm text-white/80">{transformations[currentSlide].duration}</p>
+                    <h3 className="text-3xl font-bold mb-3 drop-shadow-lg">{transformations[currentSlide].name}</h3>
+                    <p className="text-xl font-semibold text-accent drop-shadow-lg mb-2">Avant → Après</p>
+                    <p className="text-xl font-bold drop-shadow-lg">{transformations[currentSlide].weightChange}</p>
+                    <p className="text-lg text-white/90 drop-shadow-lg">{transformations[currentSlide].duration}</p>
                   </div>
                 </div>
               </div>
