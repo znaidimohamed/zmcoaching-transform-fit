@@ -1,79 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Download, Gift, Star, Users, Target, BookOpen } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-
-import { useToast } from 'path-to-your-toast-hook'; // بدّل حسب الباث متاعك
-
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast"; // حسب مشروعك
 
 const FreeGuideSection = () => {
   const { toast } = useToast();
 
   const handleDownload = () => {
-    // إظهار Toast
+    // Toast
     toast({
       title: "Guide téléchargé !",
       description: "Votre guide gratuit est prêt.",
     });
 
-    // فتح أو تحميل الـPDF
-    const userChoice = window.confirm("تحب تفتح الـGuide (OK) ولا تحمّلو (Annuler)؟");
-
-    if (userChoice) {
-      // يفتح في نافذة جديدة
-      window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
-    } else {
-      // تحميل مباشر
-      const link = document.createElement('a');
-      link.href = '/PDF/ZM_coaching_guide_Francais_.pdf';
-      link.download = 'ZM_coaching_guide_Francais_.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  };
-
-  return (
-    <div className="flex justify-center mt-6">
-      <button 
-        onClick={handleDownload} 
-        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
-      >
-        Télécharger le guide
-      </button>
-    </div>
-  );
-};
-
-export default FreeGuideSection;
-
-  };
-
-  return (
-    <div>
-      <button onClick={handleDownload} className="btn">
-        Télécharger le guide
-      </button>
-    </div>
-  );
-};
-
-export default FreeGuideSection;
-
-  };
-
-  return (
-    <div>
-      <button onClick={handleDownload} className="btn">
-        Télécharger le guide
-      </button>
-    </div>
-  );
-};
-
-export default FreeGuideSection;
-
+    // فتح الـPDF مباشرة
+    window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
   };
 
   const guideFeatures = [
@@ -98,6 +39,36 @@ export default FreeGuideSection;
       description: "Comment créer des habitudes qui durent"
     }
   ];
+
+  return (
+    <div className="flex flex-col items-center mt-6">
+      {/* الزر لتحميل أو فتح الـPDF */}
+      <button 
+        onClick={handleDownload} 
+        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition mb-6"
+      >
+        Télécharger le guide
+      </button>
+
+      {/* مثال لإظهار المزايا */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {guideFeatures.map((feature, index) => (
+          <Card key={index} className="p-4">
+            <CardContent className="flex items-start gap-4">
+              <div>{feature.icon}</div>
+              <div>
+                <h3 className="font-semibold">{feature.title}</h3>
+                <p className="text-sm text-gray-600">{feature.description}</p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FreeGuideSection;
 
   return (
     <section className="py-20 bg-background relative overflow-hidden">
