@@ -6,15 +6,27 @@ import { useToast } from "@/hooks/use-toast"; // عدّل حسب مشروعك
 const FreeGuideSection = () => {
   const { toast } = useToast();
 
-  const handleDownload = () => {
-    // Toast
+  const pdfPath = '/PDF/ZM_coaching_guide_Francais_.pdf';
+
+  const handleOpenPDF = () => {
+    toast({
+      title: "Guide ouvert !",
+      description: "Votre guide gratuit est prêt à être consulté.",
+    });
+    window.open(pdfPath, '_blank');
+  };
+
+  const handleDownloadPDF = () => {
     toast({
       title: "Guide téléchargé !",
-      description: "Votre guide gratuit est prêt.",
+      description: "Votre guide gratuit a été téléchargé.",
     });
-
-    // فتح الـPDF مباشرة
-    window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
+    const link = document.createElement('a');
+    link.href = pdfPath;
+    link.download = 'ZM_coaching_guide_Francais_.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const guideFeatures = [
@@ -42,7 +54,7 @@ const FreeGuideSection = () => {
 
   return (
     <section className="py-20 bg-background relative overflow-hidden">
-      {/* Background elements */}
+      {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 w-20 h-20 bg-accent rounded-full"></div>
         <div className="absolute bottom-20 right-10 w-16 h-16 bg-primary rounded-full"></div>
@@ -50,6 +62,7 @@ const FreeGuideSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
+        {/* Section header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6">
             <Gift className="h-4 w-4" />
@@ -96,14 +109,24 @@ const FreeGuideSection = () => {
                       <span>Gratuit</span>
                     </div>
                     
-                    <Button 
-                      size="lg"
-                      onClick={handleDownload}
-                      className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
-                    >
-                      <Download className="mr-2 h-5 w-5" />
-                      Télécharger Maintenant
-                    </Button>
+                    <div className="flex gap-4 flex-col sm:flex-row">
+                      <Button 
+                        size="lg"
+                        onClick={handleOpenPDF}
+                        className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
+                      >
+                        <Download className="mr-2 h-5 w-5" />
+                        Ouvrir le Guide
+                      </Button>
+                      <Button 
+                        size="lg"
+                        onClick={handleDownloadPDF}
+                        className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
+                      >
+                        <Download className="mr-2 h-5 w-5" />
+                        Télécharger le Guide
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
