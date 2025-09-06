@@ -10,8 +10,8 @@ const TransformationsSection = () => {
   const transformations = [
     {
       id: 1,
-      name: "Zakaria",
-      age: 0,
+      name: "Zmed",
+      age: 27,
       duration: "3 ans",
       weightChange: "61.5kg → 77kg",
       image: "/lovable-uploads/4335f17a-0acd-4239-9fff-d34f7fd7cdd1.png",
@@ -22,26 +22,26 @@ const TransformationsSection = () => {
       id: 2,
       name: "Med Ali",
       age: 35,
-      duration: "6 mois",
+      duration: "10 mois",
       weightChange: "74kg → 65.7kg",
       image: "/lovable-uploads/bdff8ee9-7a8a-4dd1-8b76-318b9896d3b6.png",
       description: "Transformation de perte de poids",
-      testimonial: "Grâce à ZM Coaching, j'ai atteint mes objectifs de perte de poids."
+      testimonial: " ZM Coaching, "
     },
     {
       id: 3,
       name: "Ghassen",
-      age: 0,
-      duration: "8 mois",
-      weightChange: "61.5kg → 77kg",
+      age: 28,
+      duration: "3 mois",
+      weightChange: "82kg → 76kg",
       image: "/lovable-uploads/b96dd092-57ba-4896-9806-dac59473b2e1.png",
-      description: "Prise de masse musculaire",
+      description: "perte du graisse  ",
       testimonial: "Transformation impressionnante avec un gain de masse musculaire significatif."
     },
     {
       id: 4,
       name: "Mohamed",
-      age: 0,
+      age: 35,
       duration: "5 mois",
       weightChange: "84kg → 79.5kg",
       image: "/lovable-uploads/dac3d974-ebd8-4d53-9540-da10a8673da0.png",
@@ -51,7 +51,7 @@ const TransformationsSection = () => {
     {
       id: 5,
       name: "Tarek",
-      age: 0,
+      age: 35,
       duration: "6 mois",
       weightChange: "87kg → 82kg",
       image: "/lovable-uploads/1b4b5b73-5ba9-48b8-831d-7d6b91d9b120.png",
@@ -61,8 +61,8 @@ const TransformationsSection = () => {
     {
       id: 6,
       name: "Hedi",
-      age: 0,
-      duration: "7 mois",
+      age: 23,
+      duration: "2 mois",
       weightChange: "61.5kg → 77kg",
       image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
       description: "Gain de masse musculaire",
