@@ -1,20 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Download, Gift, Star, Users, Target, BookOpen } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast"; // عدّل حسب مشروعك
 
 const FreeGuideSection = () => {
   const { toast } = useToast();
 
   const handleDownload = () => {
-    // For now, show a toast. You can later add the actual PDF link
+    // Toast
     toast({
       title: "Guide téléchargé !",
-      description: "Consultez votre guide de coaching gratuit.",
+      description: "Votre guide gratuit est prêt.",
     });
-    
-    // Later you can add the actual download link:
-    // window.open('/path-to-your-guide.pdf', '_blank');
+
+    // فتح الـPDF مباشرة
+    window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
   };
 
   const guideFeatures = [
@@ -42,7 +42,7 @@ const FreeGuideSection = () => {
 
   return (
     <section className="py-20 bg-background relative overflow-hidden">
-      {/* Background decorative elements */}
+      {/* Background elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 w-20 h-20 bg-accent rounded-full"></div>
         <div className="absolute bottom-20 right-10 w-16 h-16 bg-primary rounded-full"></div>
@@ -62,8 +62,7 @@ const FreeGuideSection = () => {
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Téléchargez mon guide complet avec tous mes meilleurs conseils pour 
-            réussir votre transformation physique.
+            Téléchargez mon guide complet avec tous mes meilleurs conseils pour réussir votre transformation physique.
           </p>
         </div>
 
@@ -83,8 +82,7 @@ const FreeGuideSection = () => {
                     </h3>
                     
                     <p className="text-muted-foreground mb-6">
-                      7 pages de conseils professionnels pour transformer 
-                      votre corps et votre mindset.
+                      7 pages de conseils professionnels pour transformer votre corps et votre mindset.
                     </p>
                     
                     <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-6">
