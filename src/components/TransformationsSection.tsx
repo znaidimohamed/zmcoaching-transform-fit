@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const TransformationsSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const transformations = [
     {
@@ -66,6 +69,18 @@ const TransformationsSection = () => {
     }
   ];
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % transformations.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + transformations.length) % transformations.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
   return (
     <section id="transformations" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -79,26 +94,64 @@ const TransformationsSection = () => {
           </p>
         </div>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {transformations.map((transformation) => (
-            <div key={transformation.id} className="group relative overflow-hidden rounded-lg shadow-lg">
-              <img 
-                src={transformation.image}
-                alt={`Transformation ${transformation.name}`}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              
-              {/* Hover Caption */}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <p className="text-lg font-semibold mb-1">{transformation.name}</p>
-                  <p className="text-sm">Avant → Après</p>
-                  <p className="text-sm font-medium text-accent">{transformation.weightChange}</p>
+        {/* Carousel Layout */}
+        <div className="max-w-4xl mx-auto">
+          <Card className="overflow-hidden border-0 shadow-2xl">
+            <CardContent className="p-0">
+              <div className="relative">
+                {/* Main Image */}
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img 
+                    src={transformations[currentSlide].image}
+                    alt={`Transformation ${transformations[currentSlide].name}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Navigation arrows */}
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border-0 shadow-lg"
+                  onClick={prevSlide}
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border-0 shadow-lg"
+                  onClick={nextSlide}
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </Button>
+
+                {/* Image Caption */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                  <div className="text-center text-white">
+                    <h3 className="text-2xl font-bold mb-2">{transformations[currentSlide].name}</h3>
+                    <p className="text-lg font-medium text-accent">{transformations[currentSlide].weightChange}</p>
+                    <p className="text-sm text-white/80">{transformations[currentSlide].duration}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            </CardContent>
+          </Card>
+
+          {/* Dots indicator */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {transformations.map((_, index) => (
+              <button
+                key={index}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide 
+                    ? 'bg-accent scale-125' 
+                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                }`}
+                onClick={() => goToSlide(index)}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="text-center mt-12">
