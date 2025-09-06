@@ -81,7 +81,7 @@ const AboutSection = () => {
                 Votre Partenaire Transformation
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Passionné de fitness depuis plus de 10 ans, j'ai décidé de faire de ma passion mon métier 
+                Passionné de fitness depuis plus de 7 ans, j'ai décidé de faire de ma passion mon métier 
                 pour aider le maximum de personnes à atteindre leurs objectifs.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
