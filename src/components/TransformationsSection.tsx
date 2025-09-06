@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Calendar, Award } from "lucide-react";
-import transformationImage from "@/assets/transformation-example.jpg";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const TransformationsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   const transformations = [
     {
@@ -82,6 +83,30 @@ const TransformationsSection = () => {
     setCurrentSlide(index);
   };
 
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   return (
     <section id="transformations" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -95,25 +120,30 @@ const TransformationsSection = () => {
           </p>
         </div>
 
+        {/* Carousel Layout */}
         <div className="max-w-4xl mx-auto">
           <Card className="overflow-hidden border-0 shadow-2xl">
             <CardContent className="p-0">
-              <div className="relative">
-                {/* Image principale */}
-                <div className="aspect-[800/500] overflow-hidden">
+              <div 
+                className="relative group"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                {/* Main Image - Full Size with Touch Support */}
+                <div className="overflow-hidden">
                   <img 
                     src={transformations[currentSlide].image}
                     alt={`Transformation ${transformations[currentSlide].name}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto object-contain select-none"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
                 </div>
 
-                {/* Navigation arrows */}
+                {/* Navigation arrows - Hidden on mobile */}
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white/80 border-0 shadow-lg"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300 hidden md:flex"
                   onClick={prevSlide}
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -121,50 +151,19 @@ const TransformationsSection = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white/80 border-0 shadow-lg"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300 hidden md:flex"
                   onClick={nextSlide}
                 >
                   <ChevronRight className="h-5 w-5" />
                 </Button>
 
-                {/* Overlay content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
-                  <div className="grid md:grid-cols-2 gap-6 items-end">
-                    <div>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-2">
-                        {transformations[currentSlide].name}
-                      </h3>
-                      <p className="text-white/90 mb-4">
-                        {transformations[currentSlide].description}
-                      </p>
-                      <blockquote className="text-accent italic text-lg">
-                        "{transformations[currentSlide].testimonial}"
-                      </blockquote>
-                    </div>
-                    
-                    <div className="grid grid-cols-3 gap-4 text-center">
-                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                        <Calendar className="h-6 w-6 text-accent mx-auto mb-2" />
-                        <div className="text-sm text-white/80">Durée</div>
-                        <div className="font-bold text-accent">
-                          {transformations[currentSlide].duration}
-                        </div>
-                      </div>
-                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                        <Award className="h-6 w-6 text-accent mx-auto mb-2" />
-                        <div className="text-sm text-white/80">Évolution</div>
-                        <div className="font-bold text-accent">
-                          {transformations[currentSlide].weightChange}
-                        </div>
-                      </div>
-                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                        <div className="text-2xl text-accent mb-1">👤</div>
-                        <div className="text-sm text-white/80">Âge</div>
-                        <div className="font-bold text-accent">
-                          {transformations[currentSlide].age} ans
-                        </div>
-                      </div>
-                    </div>
+                {/* Hover/Tap Caption - Centered */}
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="text-center text-white px-4">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 drop-shadow-2xl">{transformations[currentSlide].name}</h3>
+                    <p className="text-lg md:text-xl font-semibold text-accent drop-shadow-2xl mb-1 md:mb-2">Avant → Après</p>
+                    <p className="text-lg md:text-xl font-bold drop-shadow-2xl">{transformations[currentSlide].weightChange}</p>
+                    <p className="text-base md:text-lg text-white/90 drop-shadow-2xl">{transformations[currentSlide].duration}</p>
                   </div>
                 </div>
               </div>
