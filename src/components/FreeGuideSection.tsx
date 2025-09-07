@@ -109,24 +109,14 @@ const FreeGuideSection = () => {
                       <span>Gratuit</span>
                     </div>
                     
-                    <div className="flex gap-4 flex-col sm:flex-row">
-                      <Button 
-                        size="lg"
-                        onClick={handleOpenPDF}
-                        className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
-                      >
-                        <Download className="mr-2 h-5 w-5" />
-                        Ouvrir le Guide
-                      </Button>
-                      <Button 
-                        size="lg"
-                        onClick={handleDownloadPDF}
-                        className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
-                      >
-                        <Download className="mr-2 h-5 w-5" />
-                        Télécharger le Guide
-                      </Button>
-                    </div>
+                    <Button 
+                      size="lg"
+                      onClick={handleDownloadPDF}
+                      className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
+                    >
+                      <Download className="mr-2 h-5 w-5" />
+                      Télécharger le Guide
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
