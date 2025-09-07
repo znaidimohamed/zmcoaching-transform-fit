@@ -86,8 +86,12 @@ const FreeGuideSection = () => {
               <Card className="border-0 shadow-2xl bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
                 <CardContent className="p-8">
                   <div className="text-center">
-                    <div className="w-32 h-40 mx-auto mb-6 bg-gradient-to-b from-accent to-primary rounded-lg shadow-lg flex items-center justify-center">
-                      <BookOpen className="h-16 w-16 text-white" />
+                    <div className="w-64 h-80 mx-auto mb-6 rounded-lg shadow-lg overflow-hidden">
+                      <img 
+                        src="/lovable-uploads/be154f7c-292a-4aae-9c57-cbe6fd581b1b.png" 
+                        alt="ZM Coaching Guide Cover"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     
                     <h3 className="text-2xl font-bold text-primary mb-3">
