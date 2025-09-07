@@ -1,9 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Apple, ChefHat, Calculator, BookOpen, Utensils, Droplets } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import nutritionImage from "@/assets/nutrition-plan.jpg";
 
 const NutritionSection = () => {
+  const { toast } = useToast();
+
+  const handleOpenRecipesPDF = () => {
+    toast({
+      title: "Recettes ouvertes !",
+      description: "Votre guide de 50 recettes est prêt à être consulté.",
+    });
+    window.open('/PDF/50_recettes.pdf', '_blank');
+  };
   const nutritionServices = [
     {
       icon: <Calculator className="h-8 w-8 text-accent" />,
@@ -109,6 +119,17 @@ const NutritionSection = () => {
                 alt="50+ Recettes disponibles"
                 className="w-full h-full object-cover"
               />
+              {/* Button overlay on image */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                <Button 
+                  size="lg"
+                  onClick={handleOpenRecipesPDF}
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  50 Recettes
+                </Button>
+              </div>
             </div>
           </div>
         </div>
