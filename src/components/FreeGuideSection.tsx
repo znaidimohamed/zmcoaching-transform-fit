@@ -171,7 +171,7 @@ const FreeGuideSection = () => {
         {/* Trust indicators */}
         <div className="text-center mt-16">
           <p className="text-muted-foreground mb-4">
-            Déjà téléchargé par plus de 50 recettes disponibles
+           Plus de 200 personnes l’ont déjà téléchargé
           </p>
           <div className="flex items-center justify-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
