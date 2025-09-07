@@ -86,7 +86,7 @@ const FreeGuideSection = () => {
               <Card className="border-0 shadow-2xl bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
                 <CardContent className="p-8">
                   <div className="text-center">
-                    <div className="w-full max-w-lg mx-auto mb-6 rounded-lg shadow-lg overflow-hidden aspect-video">
+                    <div className="w-64 mx-auto mb-6 rounded-lg shadow-lg overflow-hidden aspect-[9/16]">
                       <img 
                         src="/lovable-uploads/be154f7c-292a-4aae-9c57-cbe6fd581b1b.png" 
                         alt="ZM Coaching Guide Cover"
