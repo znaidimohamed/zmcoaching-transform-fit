@@ -13,7 +13,7 @@ const NutritionSection = () => {
     {
       icon: <ChefHat className="h-8 w-8 text-accent" />,
       title: "Recettes Adaptées",
-      description: "Plus de 200 recettes délicieuses adaptées à la culture tunisienne et vos goûts."
+      description: "Plus de 50 recettes délicieuses adaptées à la culture tunisienne et vos goûts."
     },
     {
       icon: <Apple className="h-8 w-8 text-accent" />,
