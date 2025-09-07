@@ -119,6 +119,17 @@ const NutritionSection = () => {
                 alt="50+ Recettes disponibles"
                 className="w-full h-full object-cover"
               />
+              {/* Button overlay on image */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                <Button 
+                  size="lg"
+                  onClick={handleOpenRecipesPDF}
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  50 Recettes
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -174,23 +185,7 @@ const NutritionSection = () => {
               </ul>
             </div>
             
-            <div className="text-center space-y-4">
-              <div className="bg-card p-6 rounded-xl shadow-lg">
-                <h5 className="text-xl font-bold text-primary mb-4">
-                  50 Recettes Saines
-                </h5>
-                <p className="text-muted-foreground mb-6 text-sm">
-                  Découvrez nos 50 meilleures recettes adaptées à vos objectifs nutritionnels.
-                </p>
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-white mb-4"
-                  onClick={handleOpenRecipesPDF}
-                >
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  Consulter les Recettes
-                </Button>
-              </div>
-              
+            <div className="text-center">
               <div className="bg-card p-6 rounded-xl shadow-lg">
                 <h5 className="text-xl font-bold text-primary mb-4">
                   Consultation Nutrition Gratuite
