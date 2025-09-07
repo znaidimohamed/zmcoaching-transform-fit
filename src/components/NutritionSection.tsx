@@ -1,9 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Apple, ChefHat, Calculator, BookOpen, Utensils, Droplets } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import nutritionImage from "@/assets/nutrition-plan.jpg";
 
 const NutritionSection = () => {
+  const { toast } = useToast();
+
+  const handleOpenRecipesPDF = () => {
+    toast({
+      title: "Recettes ouvertes !",
+      description: "Votre guide de 50 recettes est prêt à être consulté.",
+    });
+    window.open('/PDF/50_recettes.pdf', '_blank');
+  };
   const nutritionServices = [
     {
       icon: <Calculator className="h-8 w-8 text-accent" />,
@@ -164,7 +174,23 @@ const NutritionSection = () => {
               </ul>
             </div>
             
-            <div className="text-center">
+            <div className="text-center space-y-4">
+              <div className="bg-card p-6 rounded-xl shadow-lg">
+                <h5 className="text-xl font-bold text-primary mb-4">
+                  50 Recettes Saines
+                </h5>
+                <p className="text-muted-foreground mb-6 text-sm">
+                  Découvrez nos 50 meilleures recettes adaptées à vos objectifs nutritionnels.
+                </p>
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90 text-white mb-4"
+                  onClick={handleOpenRecipesPDF}
+                >
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  Consulter les Recettes
+                </Button>
+              </div>
+              
               <div className="bg-card p-6 rounded-xl shadow-lg">
                 <h5 className="text-xl font-bold text-primary mb-4">
                   Consultation Nutrition Gratuite

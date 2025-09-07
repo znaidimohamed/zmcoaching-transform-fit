@@ -7,7 +7,6 @@ const FreeGuideSection = () => {
   const { toast } = useToast();
 
   const pdfPath = '/PDF/ZM_coaching_guide_Francais_.pdf';
-  const recipesPdfPath = '/PDF/50_recettes.pdf'; // You'll need to add this PDF file
 
   const handleOpenPDF = () => {
     toast({
@@ -15,14 +14,6 @@ const FreeGuideSection = () => {
       description: "Votre guide gratuit est prêt à être consulté.",
     });
     window.open(pdfPath, '_blank');
-  };
-
-  const handleOpenRecipesPDF = () => {
-    toast({
-      title: "Recettes ouvertes !",
-      description: "Votre guide de 50 recettes est prêt à être consulté.",
-    });
-    window.open(recipesPdfPath, '_blank');
   };
 
   const handleDownloadPDF = () => {
@@ -122,24 +113,14 @@ const FreeGuideSection = () => {
                       <span>Gratuit</span>
                     </div>
                     
-                    <div className="flex gap-4 flex-col sm:flex-row">
-                      <Button 
-                        size="lg"
-                        onClick={handleDownloadPDF}
-                        className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
-                      >
-                        <Download className="mr-2 h-5 w-5" />
-                        Télécharger le Guide
-                      </Button>
-                      <Button 
-                        size="lg"
-                        onClick={handleOpenRecipesPDF}
-                        className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
-                      >
-                        <BookOpen className="mr-2 h-5 w-5" />
-                        50 Recettes
-                      </Button>
-                    </div>
+                    <Button 
+                      size="lg"
+                      onClick={handleDownloadPDF}
+                      className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full"
+                    >
+                      <Download className="mr-2 h-5 w-5" />
+                      Télécharger le Guide
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
