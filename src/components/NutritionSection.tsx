@@ -12,7 +12,7 @@ const NutritionSection = () => {
       title: "Recettes ouvertes !",
       description: "Votre guide de 50 recettes est prêt à être consulté.",
     });
-    window.open('/PDF/50_recettes.pdf', '_blank');
+    window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
   };
   const nutritionServices = [
     {
