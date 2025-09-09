@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Apple, ChefHat, Calculator, BookOpen, Utensils, Droplets } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import nutritionImage from "@/assets/nutrition-plan.jpg";
+import recipeImage from "@/assets/recipe-9-16.jpg";
 
 const NutritionSection = () => {
   const { toast } = useToast();
@@ -113,9 +113,9 @@ const NutritionSection = () => {
 
           {/* Image nutrition */}
           <div className="relative">
-            <div className="aspect-square overflow-hidden rounded-2xl shadow-2xl">
+            <div className="aspect-[9/16] overflow-hidden rounded-2xl shadow-2xl max-w-md mx-auto">
               <img 
-                src="/lovable-uploads/1d0ab68e-6688-4d55-9494-9c1ceb200ade.png"
+                src={recipeImage}
                 alt="50+ Recettes disponibles"
                 className="w-full h-full object-cover"
               />
