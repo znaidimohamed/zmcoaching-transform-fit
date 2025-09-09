@@ -35,7 +35,7 @@ const Footer = () => {
     {
       name: "Email",
       icon: <Mail className="h-5 w-5" />,
-      url: "mailto:zmcoaching@gmail.com",
+      url: "mailto:medznaidi8090@gmail.com",
       color: "hover:text-accent"
     }
   ];
