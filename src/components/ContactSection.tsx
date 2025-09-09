@@ -261,9 +261,9 @@ Envoyé depuis le site ZM Coaching`;
                   Disponibilités
                 </h4>
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  <p>📅 Lundi - Vendredi : 8h00 - 20h00</p>
+                  <p>📅 Lundi - Vendredi : 8h00 - 22h00</p>
                   <p>📅 Samedi : 9h00 - 18h00</p>
-                  <p>📅 Dimanche : 10h00 - 16h00</p>
+                  <p>📅 Dimanche : 10h00 - 18h00</p>
                   <p className="text-accent font-semibold mt-3">
                     ⚡ Réponse WhatsApp sous 1h en moyenne
                   </p>
