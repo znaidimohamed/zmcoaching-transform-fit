@@ -1,8 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Apple, ChefHat, Calculator, BookOpen, Utensils, Droplets } from "lucide-react";
+import { Apple, ChefHat, Calculator, BookOpen, Utensils, Droplets, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import nutritionImage from "@/assets/nutrition-plan.jpg";
+import recipeImage from "@/assets/recipe-9-16.jpg";
 
 const NutritionSection = () => {
   const { toast } = useToast();
@@ -12,7 +12,31 @@ const NutritionSection = () => {
       title: "Recettes ouvertes !",
       description: "Votre guide de 50 recettes est prêt à être consulté.",
     });
-    window.open('/PDF/50_recettes.pdf', '_blank');
+    window.open('/PDF/ZM_coaching_guide_Francais_.pdf', '_blank');
+  };
+
+  const handleDownloadWeightLoss = () => {
+    toast({
+      title: "Programme Perte de Poids",
+      description: "Téléchargement du programme en cours...",
+    });
+    window.open('/PDF/programme_perte_poids.pdf', '_blank');
+  };
+
+  const handleDownloadMuscleGain = () => {
+    toast({
+      title: "Programme Prise de Masse",
+      description: "Téléchargement du programme en cours...",
+    });
+    window.open('/PDF/programme_prise_masse.pdf', '_blank');
+  };
+
+  const handleDownloadMaintenance = () => {
+    toast({
+      title: "Programme Maintenance",
+      description: "Téléchargement du programme en cours...",
+    });
+    window.open('/PDF/programme_maintenance.pdf', '_blank');
   };
   const nutritionServices = [
     {
@@ -112,24 +136,25 @@ const NutritionSection = () => {
           </div>
 
           {/* Image nutrition */}
-          <div className="relative">
-            <div className="aspect-square overflow-hidden rounded-2xl shadow-2xl">
+          <div className="space-y-6">
+            <div className="aspect-[9/16] overflow-hidden rounded-2xl shadow-2xl max-w-md mx-auto">
               <img 
-                src="/lovable-uploads/1d0ab68e-6688-4d55-9494-9c1ceb200ade.png"
+                src={recipeImage}
                 alt="50+ Recettes disponibles"
                 className="w-full h-full object-cover"
               />
-              {/* Button overlay on image */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                <Button 
-                  size="lg"
-                  onClick={handleOpenRecipesPDF}
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  50 Recettes
-                </Button>
-              </div>
+            </div>
+            
+            {/* Button under the image */}
+            <div className="text-center">
+              <Button 
+                size="lg"
+                onClick={handleOpenRecipesPDF}
+                className="bg-primary hover:bg-primary/90 text-white px-12 py-6 text-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full max-w-md"
+              >
+                <BookOpen className="mr-3 h-6 w-6" />
+                50+ Recettes Disponible
+              </Button>
             </div>
           </div>
         </div>
@@ -141,29 +166,52 @@ const NutritionSection = () => {
           </h3>
           
           <div className="grid md:grid-cols-3 gap-6">
-            {nutritionPlans.map((plan, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-                <CardHeader>
-                  <div className="flex justify-between items-start mb-3">
-                    <CardTitle className="text-xl font-bold text-primary">
-                      {plan.name}
-                    </CardTitle>
-                    <span className={`text-xs px-2 py-1 rounded-full font-semibold ${plan.color}`}>
-                      {plan.macros}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-accent font-semibold">
-                    <Droplets className="h-4 w-4" />
-                    {plan.calories}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground">
-                    {plan.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+            {nutritionPlans.map((plan, index) => {
+              const getDownloadHandler = () => {
+                switch (plan.name) {
+                  case "Perte de Poids":
+                    return handleDownloadWeightLoss;
+                  case "Prise de Masse":
+                    return handleDownloadMuscleGain;
+                  case "Maintenance":
+                    return handleDownloadMaintenance;
+                  default:
+                    return () => {};
+                }
+              };
+
+              return (
+                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex justify-between items-start mb-3">
+                      <CardTitle className="text-xl font-bold text-primary">
+                        {plan.name}
+                      </CardTitle>
+                      <span className={`text-xs px-2 py-1 rounded-full font-semibold ${plan.color}`}>
+                        {plan.macros}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-accent font-semibold">
+                      <Droplets className="h-4 w-4" />
+                      {plan.calories}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <CardDescription className="text-muted-foreground">
+                      {plan.description}
+                    </CardDescription>
+                    <Button 
+                      onClick={getDownloadHandler()}
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                      size="sm"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Télécharger Programme
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
 
