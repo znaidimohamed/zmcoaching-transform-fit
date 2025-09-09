@@ -112,24 +112,25 @@ const NutritionSection = () => {
           </div>
 
           {/* Image nutrition */}
-          <div className="relative">
+          <div className="space-y-6">
             <div className="aspect-[9/16] overflow-hidden rounded-2xl shadow-2xl max-w-md mx-auto">
               <img 
                 src={recipeImage}
                 alt="50+ Recettes disponibles"
                 className="w-full h-full object-cover"
               />
-              {/* Button overlay on image */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                <Button 
-                  size="lg"
-                  onClick={handleOpenRecipesPDF}
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  50 Recettes
-                </Button>
-              </div>
+            </div>
+            
+            {/* Button under the image */}
+            <div className="text-center">
+              <Button 
+                size="lg"
+                onClick={handleOpenRecipesPDF}
+                className="bg-primary hover:bg-primary/90 text-white px-12 py-6 text-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full max-w-md"
+              >
+                <BookOpen className="mr-3 h-6 w-6" />
+                50+ Recettes Disponible
+              </Button>
             </div>
           </div>
         </div>
