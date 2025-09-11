@@ -100,7 +100,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className="font-medium text-primary-foreground">Email</p>
-                <p>zmcoaching@gmail.com</p>
+                <p>medznaidi8089@gmail.com</p>
               </div>
               <div>
                 <p className="font-medium text-primary-foreground">Horaires</p>
