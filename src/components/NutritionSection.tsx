@@ -12,7 +12,7 @@ const NutritionSection = () => {
       title: "Recettes ouvertes !",
       description: "Votre guide de 50 recettes est prêt à être consulté.",
     });
-   window.open('/PDF/recettes.pdf', '_blank');
+    window.open('/PDF/recettes.pdf', '_blank');
   };
 
   const handleDownloadWeightLoss = () => {
@@ -168,14 +168,14 @@ const NutritionSection = () => {
           
           <div className="grid md:grid-cols-3 gap-6">
             {nutritionPlans.map((plan, index) => {
-              const getDownloadHandler = (planName) => {
+              const getPreviewHandler = (planName) => {
                 switch (planName) {
                   case "Perte de Poids":
                     return () => window.open('/PDF/Programme Perte de Poids.pdf', '_blank');
                   case "Prise de Masse":
-                    return () => window.open('/PDF/programme_prise_masse.pdf', '_blank');
+                    return () => window.open('/PDF/Programme Prise de Masse.pdf', '_blank');
                   case "Maintenance":
-                    return () => window.open('/PDF/programme_maintenance.pdf', '_blank');
+                    return () => window.open('/PDF/Programme Maintenance.pdf', '_blank');
                   default:
                     return () => {};
                 }
@@ -202,12 +202,12 @@ const NutritionSection = () => {
                       {plan.description}
                     </CardDescription>
                     <Button 
-                      onClick={getDownloadHandler()}
+                      onClick={getPreviewHandler(plan.name)}
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                       size="sm"
                     >
-                      <Download className="mr-2 h-4 w-4" />
-                      Télécharger Programme
+                      <BookOpen className="mr-2 h-4 w-4" />
+                      Aperçu PDF
                     </Button>
                   </CardContent>
                 </Card>
