@@ -168,14 +168,14 @@ const NutritionSection = () => {
           
           <div className="grid md:grid-cols-3 gap-6">
             {nutritionPlans.map((plan, index) => {
-              const getDownloadHandler = () => {
-                switch (plan.name) {
+              const getDownloadHandler = (planName) => {
+                switch (planName) {
                   case "Perte de Poids":
-                    return handleDownloadWeightLoss;
+                    return () => window.open('/PDF/Programme Perte de Poids.pdf', '_blank');
                   case "Prise de Masse":
-                    return handleDownloadMuscleGain;
+                    return () => window.open('/PDF/programme_prise_masse.pdf', '_blank');
                   case "Maintenance":
-                    return handleDownloadMaintenance;
+                    return () => window.open('/PDF/programme_maintenance.pdf', '_blank');
                   default:
                     return () => {};
                 }
