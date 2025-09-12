@@ -13,7 +13,7 @@ const NutritionSection = () => {
       description: "Votre guide de 50 recettes est prêt à être consulté.",
     });
   
-    window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+    window.open('/PDF/recettes.pdf', '_blank', 'noopener,noreferrer');
   };
 
   const handleDownloadWeightLoss = () => {
