@@ -21,7 +21,7 @@ const NutritionSection = () => {
       description: "Téléchargement du programme en cours...",
     });
     const link = document.createElement('a');
-    link.href = '/PDF/Programme Perte de Poids.pdf';
+    link.href = '/public/PDF/Programme Perte de Poids.pdf';
     link.download = 'Programme Perte de Poids.pdf';
     document.body.appendChild(link);
     link.click();
