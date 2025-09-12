@@ -20,8 +20,7 @@ const NutritionSection = () => {
       title: "Programme Perte de Poids",
       description: "Téléchargement du programme en cours...",
     });
-    window.open('/PDF/Programme Perte de Poids.pdf', '_blank');
-    
+    window.open('/PDF/Programme_Perte_de_Poids.pdf', '_blank');
   };
 
   const handleDownloadMuscleGain = () => {
@@ -168,14 +167,14 @@ const NutritionSection = () => {
           
           <div className="grid md:grid-cols-3 gap-6">
             {nutritionPlans.map((plan, index) => {
-              const getDownloadHandler = (planName) => {
-                switch (planName) {
+              const getDownloadHandler = () => {
+                switch (plan.name) {
                   case "Perte de Poids":
-                    return () => window.open('/PDF/Programme Perte de Poids.pdf', '_blank');
+                    return handleDownloadWeightLoss;
                   case "Prise de Masse":
-                    return () => window.open('/PDF/programme_prise_masse.pdf', '_blank');
+                    return handleDownloadMuscleGain;
                   case "Maintenance":
-                    return () => window.open('/PDF/programme_maintenance.pdf', '_blank');
+                    return handleDownloadMaintenance;
                   default:
                     return () => {};
                 }
