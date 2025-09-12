@@ -168,25 +168,14 @@ const NutritionSection = () => {
           
           <div className="grid md:grid-cols-3 gap-6">
             {nutritionPlans.map((plan, index) => {
-<<<<<<< HEAD
               const getDownloadHandler = () => {
                 switch (plan.name) {
-=======
-              const getPreviewHandler = (planName) => {
-                switch (planName) {
->>>>>>> a2ce2657a6fe250aff046b61ca7aac86e28f0c27
                   case "Perte de Poids":
                     return handleDownloadWeightLoss;
                   case "Prise de Masse":
-<<<<<<< HEAD
                     return handleDownloadMuscleGain;
                   case "Maintenance":
                     return handleDownloadMaintenance;
-=======
-                    return () => window.open('/PDF/Programme Prise de Masse.pdf', '_blank');
-                  case "Maintenance":
-                    return () => window.open('/PDF/Programme Maintenance.pdf', '_blank');
->>>>>>> a2ce2657a6fe250aff046b61ca7aac86e28f0c27
                   default:
                     return () => {};
                 }
@@ -213,12 +202,12 @@ const NutritionSection = () => {
                       {plan.description}
                     </CardDescription>
                     <Button 
-                      onClick={getPreviewHandler(plan.name)}
+                      onClick={getDownloadHandler()}
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                       size="sm"
                     >
-                      <BookOpen className="mr-2 h-4 w-4" />
-                      Aperçu PDF
+                      <Download className="mr-2 h-4 w-4" />
+                      Télécharger Programme
                     </Button>
                   </CardContent>
                 </Card>
