@@ -12,8 +12,7 @@ const NutritionSection = () => {
       title: "Recettes ouvertes !",
       description: "Votre guide de 50 recettes est prêt à être consulté.",
     });
-  
-    window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+   window.open('/PDF/recettes.pdf', '_blank');
   };
 
   const handleDownloadWeightLoss = () => {
@@ -21,7 +20,7 @@ const NutritionSection = () => {
       title: "Programme Perte de Poids",
       description: "Téléchargement du programme en cours...",
     });
-    window.open('/PDF/Programme_Perte_de_Poids.pdf', '_blank');
+    window.open('/PDF/Programme_Perte_dePoids.pdf', '_blank');
   };
 
   const handleDownloadMuscleGain = () => {
@@ -168,25 +167,14 @@ const NutritionSection = () => {
           
           <div className="grid md:grid-cols-3 gap-6">
             {nutritionPlans.map((plan, index) => {
-<<<<<<< HEAD
               const getDownloadHandler = () => {
                 switch (plan.name) {
-=======
-              const getPreviewHandler = (planName) => {
-                switch (planName) {
->>>>>>> a2ce2657a6fe250aff046b61ca7aac86e28f0c27
                   case "Perte de Poids":
                     return handleDownloadWeightLoss;
                   case "Prise de Masse":
-<<<<<<< HEAD
                     return handleDownloadMuscleGain;
                   case "Maintenance":
                     return handleDownloadMaintenance;
-=======
-                    return () => window.open('/PDF/Programme Prise de Masse.pdf', '_blank');
-                  case "Maintenance":
-                    return () => window.open('/PDF/Programme Maintenance.pdf', '_blank');
->>>>>>> a2ce2657a6fe250aff046b61ca7aac86e28f0c27
                   default:
                     return () => {};
                 }
@@ -213,12 +201,12 @@ const NutritionSection = () => {
                       {plan.description}
                     </CardDescription>
                     <Button 
-                      onClick={getPreviewHandler(plan.name)}
+                      onClick={getDownloadHandler()}
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                       size="sm"
                     >
-                      <BookOpen className="mr-2 h-4 w-4" />
-                      Aperçu PDF
+                      <Download className="mr-2 h-4 w-4" />
+                      Télécharger Programme
                     </Button>
                   </CardContent>
                 </Card>
