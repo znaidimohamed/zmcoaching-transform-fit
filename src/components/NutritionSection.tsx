@@ -12,12 +12,12 @@ const NutritionSection = () => {
       title: "Recettes ouvertes !",
       description: "Votre guide de 50 recettes est prêt à être consulté.",
     });
-<<<<<<< HEAD
+ HEAD
    window.open('/PDF/recettes.pdf', '_blank');
-=======
+
 
     window.open('/PDF/recettes.pdf', '_blank');
->>>>>>> 1c2d4ddaa8de38ed509b11ec7974a123c8d89e6e
+1c2d4ddaa8de38ed509b11ec7974a123c8d89e6e
   };
 
   const handleDownloadWeightLoss = () => {
@@ -70,7 +70,7 @@ const NutritionSection = () => {
     {
       name: "Perte de Poids",
       description: "Déficit calorique contrôlé avec maintien de la masse musculaire",
-      calories: "1400-1800 kcal",
+      calories: "1800 kcal",
       macros: "40P/30G/30L",
       color: "bg-red-100 text-red-800"
     },
