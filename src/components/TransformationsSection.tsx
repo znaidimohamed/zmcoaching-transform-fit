@@ -62,7 +62,7 @@ const TransformationsSection = () => {
       name: "Firas",
       duration: "3 ans",
       weightChange: "65kg → 77kg",
-      image: "/lovable-uploads/firas-transformation.png",
+      image: "/lovable-uploads/firas-transformation.png.png",
       testimonial: "Discipline & constance — zéro excuses."
     }
   ];
