@@ -12,85 +12,69 @@ const TransformationsSection = () => {
     {
       id: 1,
       name: "Zmed",
-      age: 27,
       duration: "3 ans",
       weightChange: "61.5kg → 77kg",
       image: "/lovable-uploads/4335f17a-0acd-4239-9fff-d34f7fd7cdd1.png",
-      description: "Ma propre transformation",
-      testimonial: "Ma transformation personnelle qui m'a mené à devenir coach professionnel."
+      testimonial: "Ma propre transformation."
     },
     {
       id: 2,
       name: "Med Ali",
-      age: 35,
       duration: "10 mois",
       weightChange: "74kg → 65.7kg",
       image: "/lovable-uploads/bdff8ee9-7a8a-4dd1-8b76-318b9896d3b6.png",
-      description: "Transformation de perte de poids",
-      testimonial: "ZM Coaching."
+      testimonial: "Perte de poids."
     },
     {
       id: 3,
       name: "Ghassen",
-      age: 28,
       duration: "3 mois",
       weightChange: "82kg → 76kg",
       image: "/lovable-uploads/b96dd092-57ba-4896-9806-dac59473b2e1.png",
-      description: "Perte de graisse",
-      testimonial: "Transformation impressionnante avec un gain de masse musculaire significatif."
+      testimonial: "Perte de graisse."
     },
     {
       id: 4,
       name: "Mohamed",
-      age: 35,
       duration: "5 mois",
       weightChange: "84kg → 79.5kg",
       image: "/lovable-uploads/dac3d974-ebd8-4d53-9540-da10a8673da0.png",
-      description: "Rééquilibrage corporel",
-      testimonial: "Excellent suivi pour atteindre mes objectifs."
+      testimonial: "Reéquilibrage corporel."
     },
     {
       id: 5,
       name: "Tarek",
-      age: 35,
       duration: "6 mois",
       weightChange: "87kg → 82kg",
       image: "/lovable-uploads/1b4b5b73-5ba9-48b8-831d-7d6b91d9b120.png",
-      description: "Transformation physique",
-      testimonial: "Résultats visibles et durables."
+      testimonial: "Transformation physique."
     },
     {
       id: 6,
       name: "Hedi",
-      age: 23,
       duration: "2 mois",
       weightChange: "61.5kg → 77kg",
       image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
-      description: "Gain de masse musculaire",
-      testimonial: "Transformation complète avec un excellent accompagnement."
+      testimonial: "Masse musculaire."
     },
-
-    // ⭐ NOUVELLE TRANSFORMATION — FIRAS
     {
       id: 7,
       name: "Firas",
-      age: 24,
       duration: "5 mois",
       weightChange: "65kg → 77kg",
       image: "/lovable-uploads/firas-transformation.png",
-      description: "Gain de masse musculaire + recomposition corporelle.",
-      testimonial: "Discipline, constance et zéro excuses — transformation garantie avec ZM Coaching."
+      testimonial: "Discipline & constance — zéro excuses."
     }
   ];
 
-  // Auto Slide every 4 seconds
+  // Auto-slide every 4s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % transformations.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [transformations.length]);
+  }, []);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % transformations.length);
@@ -100,11 +84,6 @@ const TransformationsSection = () => {
     setCurrentSlide((prev) => (prev - 1 + transformations.length) % transformations.length);
   };
 
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  // Swipe logic
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.targetTouches[0].clientX;
   };
@@ -115,7 +94,6 @@ const TransformationsSection = () => {
 
   const handleTouchEnd = () => {
     const distance = touchStartX.current - touchEndX.current;
-
     if (distance > 50) nextSlide();
     if (distance < -50) prevSlide();
   };
@@ -128,33 +106,32 @@ const TransformationsSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
             Transformations Réelles
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Découvrez les incroyables transformations de nos clients. Leurs résultats parlent d'eux-mêmes.
-          </p>
         </div>
 
-        {/* Carousel */}
-        <div className="max-w-4xl mx-auto">
-          <Card className="overflow-hidden border-0 shadow-2xl">
+        <div className="max-w-3xl mx-auto">
+          <Card className="overflow-hidden border-0 shadow-xl">
             <CardContent className="p-0">
+
+              {/* Swipe Zone */}
               <div
-                className="relative group"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
+                className="relative"
               >
+                {/* IMAGE WITHOUT HOVER DARK */}
                 <img
                   src={transformations[currentSlide].image}
                   alt={transformations[currentSlide].name}
                   className="w-full h-auto object-contain select-none"
                 />
 
-                {/* Arrows */}
+                {/* ARROWS ONLY */}
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg hidden md:flex"
                   onClick={prevSlide}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-lg hidden md:flex"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </Button>
@@ -162,42 +139,6 @@ const TransformationsSection = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg hidden md:flex"
                   onClick={nextSlide}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-lg hidden md:flex"
                 >
-                  <ChevronRight className="h-5 w-5" />
-                </Button>
-
-                {/* Overlay text */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="text-center text-white px-4">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-2">{transformations[currentSlide].name}</h3>
-                    <p className="text-lg font-semibold text-accent mb-1">Avant → Après</p>
-                    <p className="text-xl font-bold">{transformations[currentSlide].weightChange}</p>
-                    <p className="text-white/90">{transformations[currentSlide].duration}</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Dots */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {transformations.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide ? "bg-accent scale-125" : "bg-muted-foreground/30"
-                }`}
-                onClick={() => goToSlide(index)}
-              />
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </section>
-  );
-};
-
-export default TransformationsSection;
