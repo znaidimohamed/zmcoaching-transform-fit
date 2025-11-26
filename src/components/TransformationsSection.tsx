@@ -57,41 +57,23 @@ const TransformationsSection = () => {
       image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
       testimonial: "Masse musculaire."
     },
-     {
-      id: 7,
-      name: "Hedi",
-      duration: "2 mois",
-      weightChange: "61.5kg → 77kg",
-      image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
-      testimonial: "Masse musculaire."
-    },
-    {
-      id: 8,
-      name: "Hedi",
-      duration: "2 mois",
-      weightChange: "61.5kg → 77kg",
-      image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
-      testimonial: "Masse musculaire."
-    },
     {
       id: 9,
       name: "Firas",
       duration: "3 ans",
       weightChange: "65kg → 77kg",
-      image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612b.png",
+      image: "/lovable-uploads/firas-transformation.png",
       testimonial: "Discipline & constance — zéro excuses."
     }
-    
   ];
 
-  // Auto-slide every 5s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % transformations.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [transformations.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % transformations.length);
@@ -118,7 +100,6 @@ const TransformationsSection = () => {
   return (
     <section id="transformations" className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
             Transformations Réelles
@@ -128,22 +109,18 @@ const TransformationsSection = () => {
         <div className="max-w-3xl mx-auto">
           <Card className="overflow-hidden border-0 shadow-xl">
             <CardContent className="p-0">
-
-              {/* Swipe Zone */}
               <div
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
                 className="relative"
               >
-                {/* IMAGE WITHOUT HOVER DARK */}
                 <img
                   src={transformations[currentSlide].image}
                   alt={transformations[currentSlide].name}
                   className="w-full h-auto object-contain select-none"
                 />
 
-                {/* ARROWS ONLY */}
                 <Button
                   variant="outline"
                   size="icon"
@@ -159,3 +136,20 @@ const TransformationsSection = () => {
                   onClick={nextSlide}
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-lg hidden md:flex"
                 >
+                  <ChevronRight className="h-5 w-5" />
+                </Button>
+              </div>
+
+              <div className="p-6 text-center">
+                <h3 className="text-2xl font-bold">{transformations[currentSlide].name}</h3>
+                <p className="text-accent font-semibold">{transformations[currentSlide].weightChange}</p>
+                <p className="text-muted-foreground">{transformations[currentSlide].duration}</p>
+                <p className="mt-2 italic text-sm text-muted-foreground">
+                  "{transformations[currentSlide].testimonial}"
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="flex justify-center mt-6 space-x-2">
+            {transformations.map((_, idx) => (
