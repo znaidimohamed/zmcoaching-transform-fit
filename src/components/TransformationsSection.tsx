@@ -67,6 +67,14 @@ const TransformationsSection = () => {
     },
     {
       id: 8,
+      name: "Hedi",
+      duration: "2 mois",
+      weightChange: "61.5kg → 77kg",
+      image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
+      testimonial: "Masse musculaire."
+    },
+    {
+      id: 9,
       name: "Firas",
       duration: "3 ans",
       weightChange: "65kg → 77kg",
