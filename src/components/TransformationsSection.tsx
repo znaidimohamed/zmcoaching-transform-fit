@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -27,7 +27,7 @@ const TransformationsSection = () => {
       weightChange: "74kg → 65.7kg",
       image: "/lovable-uploads/bdff8ee9-7a8a-4dd1-8b76-318b9896d3b6.png",
       description: "Transformation de perte de poids",
-      testimonial: " ZM Coaching, "
+      testimonial: "ZM Coaching."
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ const TransformationsSection = () => {
       duration: "3 mois",
       weightChange: "82kg → 76kg",
       image: "/lovable-uploads/b96dd092-57ba-4896-9806-dac59473b2e1.png",
-      description: "perte du graisse  ",
+      description: "Perte de graisse",
       testimonial: "Transformation impressionnante avec un gain de masse musculaire significatif."
     },
     {
@@ -47,7 +47,7 @@ const TransformationsSection = () => {
       weightChange: "84kg → 79.5kg",
       image: "/lovable-uploads/dac3d974-ebd8-4d53-9540-da10a8673da0.png",
       description: "Rééquilibrage corporel",
-      testimonial: "Excellent suivi pour atteindre mes objectifs de remise en forme."
+      testimonial: "Excellent suivi pour atteindre mes objectifs."
     },
     {
       id: 5,
@@ -57,7 +57,7 @@ const TransformationsSection = () => {
       weightChange: "87kg → 82kg",
       image: "/lovable-uploads/1b4b5b73-5ba9-48b8-831d-7d6b91d9b120.png",
       description: "Transformation physique",
-      testimonial: "Résultats visibles et durables grâce au programme personnalisé."
+      testimonial: "Résultats visibles et durables."
     },
     {
       id: 6,
@@ -68,8 +68,29 @@ const TransformationsSection = () => {
       image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
       description: "Gain de masse musculaire",
       testimonial: "Transformation complète avec un excellent accompagnement."
+    },
+
+    // ⭐ NOUVELLE TRANSFORMATION — FIRAS
+    {
+      id: 7,
+      name: "Firas",
+      age: 24,
+      duration: "5 mois",
+      weightChange: "65kg → 77kg",
+      image: "/lovable-uploads/firas-transformation.png",
+      description: "Gain de masse musculaire + recomposition corporelle.",
+      testimonial: "Discipline, constance et zéro excuses — transformation garantie avec ZM Coaching."
     }
   ];
+
+  // Auto Slide every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % transformations.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [transformations.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % transformations.length);
@@ -83,7 +104,7 @@ const TransformationsSection = () => {
     setCurrentSlide(index);
   };
 
-  // Touch handlers for mobile swipe
+  // Swipe logic
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.targetTouches[0].clientX;
   };
@@ -93,92 +114,80 @@ const TransformationsSection = () => {
   };
 
   const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    
     const distance = touchStartX.current - touchEndX.current;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
 
-    if (isLeftSwipe) {
-      nextSlide();
-    }
-    if (isRightSwipe) {
-      prevSlide();
-    }
+    if (distance > 50) nextSlide();
+    if (distance < -50) prevSlide();
   };
 
   return (
     <section id="transformations" className="py-20 bg-background">
       <div className="container mx-auto px-4">
+        
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
             Transformations Réelles
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Découvrez les incroyables transformations de nos clients. 
-            Leurs résultats parlent d'eux-mêmes.
+            Découvrez les incroyables transformations de nos clients. Leurs résultats parlent d'eux-mêmes.
           </p>
         </div>
 
-        {/* Carousel Layout */}
+        {/* Carousel */}
         <div className="max-w-4xl mx-auto">
           <Card className="overflow-hidden border-0 shadow-2xl">
             <CardContent className="p-0">
-              <div 
+              <div
                 className="relative group"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
               >
-                {/* Main Image - Full Size with Touch Support */}
-                <div className="overflow-hidden">
-                  <img 
-                    src={transformations[currentSlide].image}
-                    alt={`Transformation ${transformations[currentSlide].name}`}
-                    className="w-full h-auto object-contain select-none"
-                  />
-                </div>
+                <img
+                  src={transformations[currentSlide].image}
+                  alt={transformations[currentSlide].name}
+                  className="w-full h-auto object-contain select-none"
+                />
 
-                {/* Navigation arrows - Hidden on mobile */}
+                {/* Arrows */}
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300 hidden md:flex"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg hidden md:flex"
                   onClick={prevSlide}
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </Button>
+
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg opacity-60 hover:opacity-100 transition-opacity duration-300 hidden md:flex"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/90 border-0 shadow-lg hidden md:flex"
                   onClick={nextSlide}
                 >
                   <ChevronRight className="h-5 w-5" />
                 </Button>
 
-                {/* Hover/Tap Caption - Centered */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                {/* Overlay text */}
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <div className="text-center text-white px-4">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 drop-shadow-2xl">{transformations[currentSlide].name}</h3>
-                    <p className="text-lg md:text-xl font-semibold text-accent drop-shadow-2xl mb-1 md:mb-2">Avant → Après</p>
-                    <p className="text-lg md:text-xl font-bold drop-shadow-2xl">{transformations[currentSlide].weightChange}</p>
-                    <p className="text-base md:text-lg text-white/90 drop-shadow-2xl">{transformations[currentSlide].duration}</p>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-2">{transformations[currentSlide].name}</h3>
+                    <p className="text-lg font-semibold text-accent mb-1">Avant → Après</p>
+                    <p className="text-xl font-bold">{transformations[currentSlide].weightChange}</p>
+                    <p className="text-white/90">{transformations[currentSlide].duration}</p>
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Dots indicator */}
+          {/* Dots */}
           <div className="flex justify-center mt-8 space-x-2">
             {transformations.map((_, index) => (
               <button
                 key={index}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide 
-                    ? 'bg-accent scale-125' 
-                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                  index === currentSlide ? "bg-accent scale-125" : "bg-muted-foreground/30"
                 }`}
                 onClick={() => goToSlide(index)}
               />
@@ -186,21 +195,6 @@ const TransformationsSection = () => {
           </div>
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-6">
-            Rejoignez des centaines de clients satisfaits
-          </p>
-          <Button 
-            size="lg"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg rounded-xl"
-            onClick={() => {
-              const element = document.getElementById('contact');
-              if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Commencer Ma Transformation
-          </Button>
-        </div>
       </div>
     </section>
   );
