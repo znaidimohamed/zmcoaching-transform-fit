@@ -57,21 +57,23 @@ const TransformationsSection = () => {
       image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
       testimonial: "Masse musculaire."
     },
-    {
+     {
       id: 7,
+      name: "Hedi",
+      duration: "2 mois",
+      weightChange: "61.5kg → 77kg",
+      image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612bc.png",
+      testimonial: "Masse musculaire."
+    },
+    {
+      id: 8,
       name: "Firas",
       duration: "3 ans",
       weightChange: "65kg → 77kg",
       image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612b.png",
       testimonial: "Discipline & constance — zéro excuses."
     }
-    {
-      id: 7,
-      name: "Firas",
-      duration: "3 ans",
-      weightChange: "65kg → 77kg",
-      image: "/lovable-uploads/2b7c46d8-230a-4ddd-803b-56e2ebb612b.png",
-      testimonial: "Discipline & constance — zéro excuses."
+    
   ];
 
   // Auto-slide every 5s
