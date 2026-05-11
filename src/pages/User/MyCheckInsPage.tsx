@@ -10,7 +10,7 @@ import {
   Weight,
 } from "lucide-react";
 
-const API_URL = "https://zmcoachingbackend.onrender.com";
+const API_URL = "https://zmcoachingbackend.onrender.com/api";
 
 const MyCheckInsPage = () => {
   const [checkIns, setCheckIns] = useState<any[]>([]);

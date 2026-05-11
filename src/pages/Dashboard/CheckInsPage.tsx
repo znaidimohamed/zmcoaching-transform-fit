@@ -12,7 +12,7 @@ import {
   Zap,
 } from "lucide-react";
 
-const API_URL = "https://zmcoachingbackend.onrender.com";
+const API_URL = "https://zmcoachingbackend.onrender.com/api";
 
 const CheckInsPage = () => {
   const [checkIns, setCheckIns] = useState<any[]>([]);

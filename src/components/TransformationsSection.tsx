@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-const API_URL = "https://zmcoachingbackend.onrender.com";
+const API_URL = "https://zmcoachingbackend.onrender.com/api";
 
 const TransformationsSection = () => {
   const [data, setData] = useState<any[]>([]);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { Apple, CheckCircle2, FileDown } from "lucide-react";
 
-const API_URL = "https://zmcoachingbackend.onrender.com";
+const API_URL = "https://zmcoachingbackend.onrender.com/api";
 
 const MyNutritionPage = () => {
   const [plans, setPlans] = useState<any[]>([]);

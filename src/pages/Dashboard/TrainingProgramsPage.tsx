@@ -10,7 +10,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-const API_URL = "https://zmcoachingbackend.onrender.com";
+const API_URL = "https://zmcoachingbackend.onrender.com/api";
 
 const TrainingProgramsPage = () => {
   const [programs, setPrograms] = useState<any[]>([]);
