@@ -11,7 +11,7 @@ import {
   Users,
 } from "lucide-react";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://zmcoachingbackend.onrender.com";
 
 const NutritionPlansPage = () => {
   const [plans, setPlans] = useState<any[]>([]);

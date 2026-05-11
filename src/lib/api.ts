@@ -13,3 +13,7 @@ api.interceptors.request.use((config) => {
 
   return config;
 });
+export const sendCoachAiMessage = async (message: string) => {
+  const res = await api.post("/ai/chat", { message });
+  return res.data;
+};

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { ImagePlus, Trash2, UploadCloud } from "lucide-react";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://zmcoachingbackend.onrender.com";
 
 const TransformationsPage = () => {
   const [data, setData] = useState<any[]>([]);

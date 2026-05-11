@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { Dumbbell, FileDown } from "lucide-react";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://zmcoachingbackend.onrender.com";
 
 const MyTrainingPage = () => {
   const [programs, setPrograms] = useState<any[]>([]);

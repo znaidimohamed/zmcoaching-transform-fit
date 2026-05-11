@@ -7,6 +7,7 @@ import TransformationsSection from "@/components/TransformationsSection";
 import TrainingSection from "@/components/TrainingSection";
 import NutritionSection from "@/components/NutritionSection";
 import Footer from "@/components/ContactFooter";
+import CoachAiBubble from "@/components/CoachAiBubble";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <TrainingSection />
       <NutritionSection />
       <Footer />
+      <CoachAiBubble />
     </div>
   );
 };
