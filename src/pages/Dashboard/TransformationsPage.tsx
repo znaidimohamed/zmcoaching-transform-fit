@@ -164,8 +164,8 @@ const TransformationsPage = () => {
                 className="group rounded-3xl overflow-hidden border border-white/10 bg-black/40 hover:border-red-500/50 transition"
               >
                 <div className="grid grid-cols-2">
-                  <ImagePreview src={`${API_URL}${t.beforeImage}`} label="Before" />
-                  <ImagePreview src={`${API_URL}${t.afterImage}`} label="After" />
+                  <ImagePreview src={t.beforeImage} label="Before" />
+                  <ImagePreview src={t.afterImage} label="After" />
                 </div>
 
                 <div className="p-5">
