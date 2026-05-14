@@ -501,7 +501,7 @@ const TrainingCard = ({ program, preview = false }: any) => (
 
         {program.pdfUrl && (
           <a
-            href={`${API_URL}${program.pdfUrl}`}
+            href={program.pdfUrl}
             target="_blank"
             rel="noreferrer"
             className="mt-3 inline-block text-red-400 text-sm font-bold hover:text-red-300"

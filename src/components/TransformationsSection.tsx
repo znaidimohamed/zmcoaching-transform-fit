@@ -204,12 +204,12 @@ const TransformationsSection = () => {
                   >
                     <div className="relative grid h-64 grid-cols-2 overflow-hidden">
                       <ImageBlock
-                        src={`${API_URL}${item.beforeImage}`}
+                        src={item.beforeImage}
                         label="Before"
                       />
 
                       <ImageBlock
-                        src={`${API_URL}${item.afterImage}`}
+                        src={item.afterImage}
                         label="After"
                       />
 

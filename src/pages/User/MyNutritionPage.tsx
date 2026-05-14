@@ -89,7 +89,7 @@ const MyNutritionPage = () => {
 
               {plan.pdfUrl && (
                 <a
-                  href={`${API_URL}${plan.pdfUrl}`}
+                  href={plan.pdfUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-red-600 py-3 font-black hover:bg-red-700 transition"

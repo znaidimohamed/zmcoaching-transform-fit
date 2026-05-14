@@ -76,7 +76,7 @@ const MyTrainingPage = () => {
 
               {program.pdfUrl && (
                 <a
-                  href={`${API_URL}${program.pdfUrl}`}
+                  href={program.pdfUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-red-600 py-3 font-black hover:bg-red-700 transition"

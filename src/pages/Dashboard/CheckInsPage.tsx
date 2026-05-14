@@ -262,13 +262,13 @@ const PhotoGrid = ({ checkIn }: any) => {
       {photos.map((photo) => (
         <a
           key={photo.label}
-          href={`${API_URL}${photo.url}`}
+          href={photo.url}
           target="_blank"
           rel="noreferrer"
           className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 group"
         >
           <img
-            src={`${API_URL}${photo.url}`}
+            src={photo.url}
             alt={photo.label}
             className="h-full w-full object-cover group-hover:scale-110 transition duration-500"
           />
