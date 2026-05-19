@@ -29,7 +29,11 @@ const SchedulePage = () => {
 
   const fetchUsers = async () => {
     const res = await api.get("/users");
-    const onlyUsers = res.data.users.filter((u: any) => u.role === "user");
+
+    const onlyUsers = res.data.users.filter(
+      (u: any) => u.role === "user"
+    );
+
     setUsers(onlyUsers);
 
     if (onlyUsers.length > 0 && !selectedUserId) {
@@ -83,6 +87,14 @@ const SchedulePage = () => {
     fetchSchedules();
   };
 
+  const filteredSchedules = selectedUserId
+    ? schedules.filter(
+        (item) =>
+          item.user?._id === selectedUserId ||
+          item.user?.id === selectedUserId
+      )
+    : schedules;
+
   return (
     <div className="space-y-8">
       <div>
@@ -105,9 +117,13 @@ const SchedulePage = () => {
             <div className="h-12 w-12 rounded-2xl bg-red-600 flex items-center justify-center">
               <Users size={24} />
             </div>
+
             <div>
               <h2 className="text-2xl font-black">Client</h2>
-              <p className="text-sm text-zinc-400">Choisis le client</p>
+
+              <p className="text-sm text-zinc-400">
+                Choisis le client
+              </p>
             </div>
           </div>
 
@@ -129,8 +145,12 @@ const SchedulePage = () => {
             <div className="h-12 w-12 rounded-2xl bg-red-600 flex items-center justify-center">
               <Plus size={24} />
             </div>
+
             <div>
-              <h2 className="text-2xl font-black">Ajouter une séance</h2>
+              <h2 className="text-2xl font-black">
+                Ajouter une séance
+              </h2>
+
               <p className="text-sm text-zinc-400">
                 Jour, horaire, type et notes
               </p>
@@ -142,10 +162,15 @@ const SchedulePage = () => {
             className="grid grid-cols-1 md:grid-cols-2 gap-5"
           >
             <div>
-              <label className="text-sm text-zinc-300 mb-2 block">Jour</label>
+              <label className="text-sm text-zinc-300 mb-2 block">
+                Jour
+              </label>
+
               <select
                 value={form.day}
-                onChange={(e) => setForm({ ...form, day: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, day: e.target.value })
+                }
                 className="w-full rounded-2xl bg-black/60 border border-white/10 px-4 py-3 outline-none focus:border-red-500"
               >
                 {days.map((day) => (
@@ -157,7 +182,9 @@ const SchedulePage = () => {
             <Field
               label="Titre"
               value={form.title}
-              onChange={(v) => setForm({ ...form, title: v })}
+              onChange={(v: string) =>
+                setForm({ ...form, title: v })
+              }
               placeholder="Ex: Leg Day"
             />
 
@@ -165,28 +192,39 @@ const SchedulePage = () => {
               label="Début"
               type="time"
               value={form.startTime}
-              onChange={(v) => setForm({ ...form, startTime: v })}
+              onChange={(v: string) =>
+                setForm({ ...form, startTime: v })
+              }
             />
 
             <Field
               label="Fin"
               type="time"
               value={form.endTime}
-              onChange={(v) => setForm({ ...form, endTime: v })}
+              onChange={(v: string) =>
+                setForm({ ...form, endTime: v })
+              }
             />
 
             <Field
               label="Type"
               value={form.type}
-              onChange={(v) => setForm({ ...form, type: v })}
+              onChange={(v: string) =>
+                setForm({ ...form, type: v })
+              }
               placeholder="Ex: Salle / Cardio"
             />
 
             <div className="md:col-span-2">
-              <label className="text-sm text-zinc-300 mb-2 block">Notes</label>
+              <label className="text-sm text-zinc-300 mb-2 block">
+                Notes
+              </label>
+
               <textarea
                 value={form.notes}
-                onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, notes: e.target.value })
+                }
                 placeholder="Notes pour le client..."
                 className="w-full min-h-24 rounded-2xl bg-black/60 border border-white/10 px-4 py-3 outline-none focus:border-red-500"
               />
@@ -210,21 +248,24 @@ const SchedulePage = () => {
 
           <div>
             <h2 className="text-2xl font-black">Planning</h2>
+
             <p className="text-sm text-zinc-400">
-              {schedules.length} séance(s)
+              {filteredSchedules.length} séance(s)
             </p>
           </div>
         </div>
 
         {loading ? (
-          <div className="text-zinc-400 py-12 text-center">Chargement...</div>
-        ) : schedules.length === 0 ? (
+          <div className="text-zinc-400 py-12 text-center">
+            Chargement...
+          </div>
+        ) : filteredSchedules.length === 0 ? (
           <div className="text-zinc-500 py-12 text-center border border-dashed border-white/10 rounded-3xl">
             Aucun horaire ajouté.
           </div>
         ) : (
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {schedules.map((item) => (
+            {filteredSchedules.map((item) => (
               <article
                 key={item._id}
                 className={`rounded-[2rem] border p-6 bg-black/50 ${
@@ -233,12 +274,17 @@ const SchedulePage = () => {
                     : "border-zinc-700 opacity-50 grayscale"
                 }`}
               >
-                <p className="text-red-400 text-sm font-bold">{item.day}</p>
+                <p className="text-red-400 text-sm font-bold">
+                  {item.day}
+                </p>
 
-                <h3 className="text-2xl font-black mt-2">{item.title}</h3>
+                <h3 className="text-2xl font-black mt-2">
+                  {item.title}
+                </h3>
 
                 <div className="mt-4 flex items-center gap-3 text-zinc-300">
                   <Clock size={18} />
+
                   <span>
                     {item.startTime} - {item.endTime}
                   </span>
@@ -248,7 +294,9 @@ const SchedulePage = () => {
                   Client: {item.user?.fullName}
                 </p>
 
-                <p className="mt-1 text-sm text-zinc-500">{item.type}</p>
+                <p className="mt-1 text-sm text-zinc-500">
+                  {item.type}
+                </p>
 
                 {item.notes && (
                   <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-zinc-300">
@@ -265,7 +313,9 @@ const SchedulePage = () => {
                         : "bg-red-600 hover:bg-red-700"
                     }`}
                   >
-                    {item.isActive ? "Désactiver" : "Activer"}
+                    {item.isActive
+                      ? "Désactiver"
+                      : "Activer"}
                   </button>
 
                   <button
@@ -284,9 +334,18 @@ const SchedulePage = () => {
   );
 };
 
-const Field = ({ label, value, onChange, placeholder, type = "text" }: any) => (
+const Field = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: any) => (
   <div>
-    <label className="text-sm text-zinc-300 mb-2 block">{label}</label>
+    <label className="text-sm text-zinc-300 mb-2 block">
+      {label}
+    </label>
+
     <input
       required
       type={type}

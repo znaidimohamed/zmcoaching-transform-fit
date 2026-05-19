@@ -334,21 +334,27 @@ const CheckInCard = ({ checkIn }: any) => {
 
       {photos.length > 0 && (
         <div className="mt-5 grid grid-cols-3 gap-2">
-          {photos.map((photo: string, index: number) => (
-            <a
-              key={index}
-              href={`${API_URL}${photo}`}
-              target="_blank"
-              rel="noreferrer"
-              className="aspect-square rounded-2xl overflow-hidden border border-white/10"
-            >
-              <img
-                src={`${API_URL}${photo}`}
-                alt="check-in"
-                className="h-full w-full object-cover"
-              />
-            </a>
-          ))}
+          {photos.map((photo: string, index: number) => {
+            const imageUrl = photo.startsWith("http")
+              ? photo
+              : `${API_URL}${photo}`;
+
+            return (
+              <a
+                key={index}
+                href={imageUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="aspect-square rounded-2xl overflow-hidden border border-white/10"
+              >
+                <img
+                  src={imageUrl}
+                  alt="check-in"
+                  className="h-full w-full object-cover"
+                />
+              </a>
+            );
+          })}
         </div>
       )}
       {checkIn.coachFeedback && (
