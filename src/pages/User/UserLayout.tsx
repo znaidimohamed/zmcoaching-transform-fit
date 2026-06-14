@@ -17,11 +17,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
-  { to: "/user/nutrition", label: "Ma Nutrition", icon: Apple },
-  { to: "/user/training", label: "Mon Training", icon: Dumbbell },
-  { to: "/user/schedule", label: "Mon Planning", icon: CalendarDays },
+  { to: "/user/nutrition", label: "Nutrition", icon: Apple },
+  { to: "/user/training", label: "Training", icon: Dumbbell },
+  { to: "/user/schedule", label: "Planning", icon: CalendarDays },
   { to: "/user/checkins", label: "Check-in", icon: ClipboardCheck },
-  { to: "/user/progress", label: "Mon Progress", icon: TrendingUp },
+  { to: "/user/progress", label: "Progress", icon: TrendingUp },
   { to: "/user/chat", label: "Messages", icon: MessageCircle },
 ];
 
@@ -44,10 +44,10 @@ const UserLayout = () => {
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,38,38,0.25),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(127,29,29,0.18),transparent_35%)] pointer-events-none" />
 
       <header className="sticky top-0 z-40 border-b border-white/10 bg-black/75 backdrop-blur-2xl">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-[1700px] items-center gap-5 px-4 py-4 sm:px-6 lg:px-8">
           <button
             onClick={() => navigate("/")}
-            className="group flex items-center gap-3 text-left"
+            className="group flex shrink-0 items-center gap-3 text-left"
           >
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-900 shadow-lg shadow-red-900/30 transition group-hover:scale-105">
               <Target size={24} />
@@ -63,7 +63,7 @@ const UserLayout = () => {
             </div>
           </button>
 
-          <nav className="hidden max-w-full items-center gap-2 overflow-x-auto rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 shadow-xl backdrop-blur-xl xl:flex">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 shadow-xl backdrop-blur-xl xl:flex">
             {navItems.map((item) => {
               const Icon = item.icon;
 
@@ -78,18 +78,18 @@ const UserLayout = () => {
                   to={item.to}
                   className={() =>
                     active
-                      ? "group relative inline-flex items-center gap-2 rounded-full bg-red-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-red-900/30 transition whitespace-nowrap"
-                      : "group relative inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-zinc-300 transition hover:bg-white/10 hover:text-white whitespace-nowrap"
+                      ? "group relative inline-flex min-w-0 items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-red-900/30 transition"
+                      : "group relative inline-flex min-w-0 items-center gap-2 rounded-full px-4 py-3 text-sm font-bold text-zinc-300 transition hover:bg-white/10 hover:text-white"
                   }
                 >
-                  <Icon size={18} />
-                  {item.label}
+                  <Icon size={18} className="shrink-0" />
+                  <span className="truncate">{item.label}</span>
                 </NavLink>
               );
             })}
           </nav>
 
-          <div className="hidden items-center gap-3 xl:flex">
+          <div className="hidden shrink-0 items-center gap-3 xl:flex">
             <button
               onClick={() => navigate("/")}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-3 text-sm font-black text-white transition hover:bg-white/20"
@@ -100,7 +100,7 @@ const UserLayout = () => {
 
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-black text-black shadow-lg transition hover:bg-red-600 hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full bg-red-500/80 px-5 py-3 text-sm font-black text-white shadow-lg transition hover:bg-red-600"
             >
               <LogOut size={18} />
               Déconnexion
@@ -109,7 +109,7 @@ const UserLayout = () => {
 
           <button
             onClick={() => setMobileOpen(true)}
-            className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/10 xl:hidden"
+            className="ml-auto flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/10 xl:hidden"
           >
             <Menu size={22} />
           </button>
