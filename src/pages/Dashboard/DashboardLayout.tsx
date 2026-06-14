@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
+import NotificationBell from "@/components/NotificationBell";
 
 const navItems = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
@@ -159,6 +160,9 @@ const DashboardLayout = () => {
           </button>
         </div>
       </header>
+      <div className="mb-6 flex justify-end pt-4 pr-6">
+        <NotificationBell />
+      </div>
 
       <AnimatePresence>
         {sidebarOpen && (
