@@ -96,7 +96,7 @@ const FreeGuideSection = () => {
                   <div className="mt-6 grid grid-cols-3 gap-3">
                     <MiniStat value="PDF" label="Format" />
                     <MiniStat value="7" label="Pages" />
-                    <MiniStat value="0 DT" label="Prix" />
+                    <MiniStat value="Free" label="Prix" />
                   </div>
 
                   <button

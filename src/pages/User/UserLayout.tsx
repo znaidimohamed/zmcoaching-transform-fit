@@ -11,6 +11,7 @@ import {
   Menu,
   X,
   Home,
+  MessageCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
@@ -21,6 +22,7 @@ const navItems = [
   { to: "/user/schedule", label: "Mon Planning", icon: CalendarDays },
   { to: "/user/checkins", label: "Check-in", icon: ClipboardCheck },
   { to: "/user/progress", label: "Mon Progress", icon: TrendingUp },
+  { to: "/user/chat", label: "Messages", icon: MessageCircle },
 ];
 
 const UserLayout = () => {
@@ -36,20 +38,6 @@ const UserLayout = () => {
 
   const isNutritionActive =
     location.pathname === "/user" || location.pathname === "/user/nutrition";
-
-  const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `group relative inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-      isActive
-        ? "bg-red-600 text-white shadow-lg shadow-red-900/30"
-        : "text-zinc-300 hover:bg-white/10 hover:text-white"
-    }`;
-
-  const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `flex items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold transition-all duration-300 ${
-      isActive
-        ? "bg-red-600 text-white"
-        : "text-zinc-300 hover:bg-white/10 hover:text-white"
-    }`;
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-black text-white">
@@ -78,6 +66,7 @@ const UserLayout = () => {
           <nav className="hidden max-w-full items-center gap-2 overflow-x-auto rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 shadow-xl backdrop-blur-xl xl:flex">
             {navItems.map((item) => {
               const Icon = item.icon;
+
               const active =
                 item.to === "/user/nutrition"
                   ? isNutritionActive
@@ -162,6 +151,7 @@ const UserLayout = () => {
               <nav className="space-y-2">
                 {navItems.map((item) => {
                   const Icon = item.icon;
+
                   const active =
                     item.to === "/user/nutrition"
                       ? isNutritionActive
@@ -229,7 +219,8 @@ const UserLayout = () => {
           </h2>
 
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-            Retrouve ici tes programmes, ton suivi et ton évolution.
+            Retrouve ici tes programmes, ton suivi, tes messages et ton
+            évolution.
           </p>
         </motion.section>
 

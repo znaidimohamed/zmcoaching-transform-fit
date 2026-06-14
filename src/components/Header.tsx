@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const navItems = [
   { id: "accueil", label: "Accueil" },
+  { id: "hyrox", label: "Hyrox" },
   { id: "packs", label: "Packs" },
   { id: "transformations", label: "Transformations" },
   { id: "entrainement", label: "Entraînement" },
@@ -41,13 +42,10 @@ const Header = () => {
       const current = [...navItems].reverse().find((item) => {
         const section = document.getElementById(item.id);
         if (!section) return false;
-
         return section.offsetTop - 140 <= window.scrollY;
       });
 
-      if (current) {
-        setActiveSection(current.id);
-      }
+      if (current) setActiveSection(current.id);
     };
 
     handleScroll();
@@ -109,9 +107,7 @@ const Header = () => {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`relative rounded-xl px-4 py-2 text-sm font-bold transition-all duration-300 ${
-                    active
-                      ? "text-white"
-                      : "text-zinc-300 hover:text-white"
+                    active ? "text-white" : "text-zinc-300 hover:text-white"
                   }`}
                 >
                   {active && (
@@ -212,10 +208,7 @@ const Header = () => {
 
                 {isAuthenticated ? (
                   <div className="space-y-2">
-                    <Link
-                      to={accountPath}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
+                    <Link to={accountPath} onClick={() => setIsMenuOpen(false)}>
                       <button className="w-full rounded-2xl bg-red-600 px-4 py-3 text-left font-bold text-white transition hover:bg-red-700">
                         <User className="mr-2 inline h-4 w-4" />
                         {accountLabel}
@@ -232,10 +225,7 @@ const Header = () => {
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <Link
-                      to="/login"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>
                       <button className="w-full rounded-2xl bg-white/10 px-4 py-3 text-left font-bold text-white transition hover:bg-white/20">
                         Connexion
                       </button>

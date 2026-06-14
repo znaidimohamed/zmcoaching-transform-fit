@@ -17,6 +17,7 @@ import {
   X,
   Target,
   LayoutDashboard,
+  MessageCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
@@ -24,6 +25,7 @@ import { useAuth } from "@/contexts/AuthContext";
 const navItems = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { to: "/dashboard/users", label: "Utilisateurs", icon: Users },
+  { to: "/dashboard/chat", label: "Messages", icon: MessageCircle },
   { to: "/dashboard/transformations", label: "Transformations", icon: Image },
   { to: "/dashboard/packs", label: "Packs", icon: Box },
   { to: "/dashboard/nutrition", label: "Nutrition", icon: Apple },
@@ -95,11 +97,19 @@ const DashboardLayout = () => {
                   <Icon
                     size={20}
                     className={`relative z-10 ${
-                      isActive ? "text-red-400" : "text-zinc-500 group-hover:text-red-400"
+                      isActive
+                        ? "text-red-400"
+                        : "text-zinc-500 group-hover:text-red-400"
                     }`}
                   />
 
                   <span className="relative z-10">{item.label}</span>
+
+                  {item.to === "/dashboard/chat" && (
+                    <span className="relative z-10 ml-auto rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-black text-white">
+                      New
+                    </span>
+                  )}
                 </>
               )}
             </NavLink>

@@ -2,31 +2,36 @@ import { Toaster } from "@/components/ui/toaster";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
-import ProtectedRoute from  "./pages/ProtectedRoute";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
+
+import ProtectedRoute from "./pages/ProtectedRoute";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import NotFound from "./pages/NotFound";
+
 import DashboardLayout from "./pages/Dashboard/DashboardLayout";
+import DashboardOverviewPage from "./pages/Dashboard/DashboardOverviewPage";
 import UsersPage from "./pages/Dashboard/UsersPage";
 import TransformationsPage from "./pages/Dashboard/TransformationsPage";
-import PacksPage from "./pages/Dashboard/PacksPage"
+import PacksPage from "./pages/Dashboard/PacksPage";
 import NutritionPlansPage from "./pages/Dashboard/NutritionPlansPage";
-import TrainingProgramsPage from "./pages/Dashboard/TrainingProgramsPage";  
-import UserLayout from "./pages/User/UserLayout";
-import MyNutritionPage from "./pages/User/MyNutritionPage";
-import MyTrainingPage from "./pages/User/MyTrainingPage";
+import TrainingProgramsPage from "./pages/Dashboard/TrainingProgramsPage";
 import ProgressPage from "./pages/Dashboard/ProgressPage";
-import MyProgressPage from "./pages/User/MyProgressPage";
 import CoursesPage from "./pages/Dashboard/CoursesPage";
 import LeadsPage from "./pages/Dashboard/LeadsPage";
 import PurchaseRequestsPage from "./pages/Dashboard/PurchaseRequestsPage";
 import SchedulePage from "./pages/Dashboard/SchedulePage";
-import MySchedulePage from "./pages/User/MySchedulePage";
 import CheckInsPage from "./pages/Dashboard/CheckInsPage";
+import ChatPage from "./pages/Dashboard/ChatPage";
+
+import UserLayout from "./pages/User/UserLayout";
+import MyNutritionPage from "./pages/User/MyNutritionPage";
+import MyTrainingPage from "./pages/User/MyTrainingPage";
+import MyProgressPage from "./pages/User/MyProgressPage";
+import MySchedulePage from "./pages/User/MySchedulePage";
 import MyCheckInsPage from "./pages/User/MyCheckInsPage";
-import DashboardOverviewPage from "./pages/Dashboard/DashboardOverviewPage";
-import Signup from "./pages/Signup";
-import NotFound from "./pages/NotFound";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
+import MyChatPage from "./pages/User/MyChatPage";
 
 const queryClient = new QueryClient();
 
@@ -35,11 +40,13 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <Toaster />
+
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+
             <Route
               path="/dashboard"
               element={
@@ -50,6 +57,7 @@ const App = () => (
             >
               <Route index element={<DashboardOverviewPage />} />
               <Route path="users" element={<UsersPage />} />
+              <Route path="chat" element={<ChatPage />} />
               <Route path="transformations" element={<TransformationsPage />} />
               <Route path="packs" element={<PacksPage />} />
               <Route path="nutrition" element={<NutritionPlansPage />} />
@@ -58,9 +66,13 @@ const App = () => (
               <Route path="progress" element={<ProgressPage />} />
               <Route path="courses" element={<CoursesPage />} />
               <Route path="schedule" element={<SchedulePage />} />
-              <Route path="purchase-requests" element={<PurchaseRequestsPage />} />
+              <Route
+                path="purchase-requests"
+                element={<PurchaseRequestsPage />}
+              />
               <Route path="leads" element={<LeadsPage />} />
             </Route>
+
             <Route
               path="/user"
               element={
@@ -75,8 +87,9 @@ const App = () => (
               <Route path="schedule" element={<MySchedulePage />} />
               <Route path="checkins" element={<MyCheckInsPage />} />
               <Route path="progress" element={<MyProgressPage />} />
+              <Route path="chat" element={<MyChatPage />} />
             </Route>
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
@@ -85,4 +98,4 @@ const App = () => (
   </QueryClientProvider>
 );
 
-export default App; 
+export default App;
