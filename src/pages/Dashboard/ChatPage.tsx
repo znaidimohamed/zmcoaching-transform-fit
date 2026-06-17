@@ -54,17 +54,16 @@ const ChatPage = () => {
     }
   };
 
-  const fetchConversation = async (clientId: string) => {
+  const fetchConversation = async (clientId: string, showLoader = false) => {
     try {
-      setLoadingMessages(true);
+      if (showLoader) setLoadingMessages(true);
 
       const res = await api.get(`/messages/admin/${clientId}`);
       setMessages(res.data.messages || []);
     } catch (error) {
       console.log(error);
-      setMessages([]);
     } finally {
-      setLoadingMessages(false);
+      if (showLoader) setLoadingMessages(false);
     }
   };
 
@@ -73,9 +72,15 @@ const ChatPage = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedClient?._id) {
-      fetchConversation(selectedClient._id);
-    }
+    if (!selectedClient?._id) return;
+
+    fetchConversation(selectedClient._id, true);
+
+    const interval = setInterval(() => {
+      fetchConversation(selectedClient._id, false);
+    }, 2500);
+
+    return () => clearInterval(interval);
   }, [selectedClient?._id]);
 
   useEffect(() => {
@@ -99,12 +104,12 @@ const ChatPage = () => {
     try {
       setSending(true);
 
-      const res = await api.post(`/messages/admin/${selectedClient._id}`, {
+      await api.post(`/messages/admin/${selectedClient._id}`, {
         text: text.trim(),
       });
 
-      setMessages((prev) => [...prev, res.data.chatMessage]);
       setText("");
+      await fetchConversation(selectedClient._id, false);
     } catch (error) {
       console.log(error);
     } finally {
@@ -275,9 +280,7 @@ const ChatPage = () => {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        sendMessage();
-                      }
+                      if (e.key === "Enter") sendMessage();
                     }}
                     placeholder="Écrire un message..."
                     className="h-14 flex-1 rounded-2xl border border-white/10 bg-white/5 px-5 outline-none transition focus:border-red-500"

@@ -1,5 +1,5 @@
 import { MessageCircle, Send } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 
 type Coach = {
@@ -26,25 +26,45 @@ type ChatMessage = {
 };
 
 const MyChatPage = () => {
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
   const [coach, setCoach] = useState<Coach | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
 
-  const fetchConversation = async () => {
+  const fetchConversation = async (showLoader = false) => {
     try {
+      if (showLoader) setLoading(true);
+
       const res = await api.get("/messages/me");
+
       setCoach(res.data.coach);
       setMessages(res.data.messages || []);
+    } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchConversation();
+    fetchConversation(true);
+
+    const interval = setInterval(() => {
+      fetchConversation(false);
+    }, 2500);
+
+    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, [messages]);
 
   const sendMessage = async () => {
     if (!text.trim() || sending) return;
@@ -52,12 +72,14 @@ const MyChatPage = () => {
     try {
       setSending(true);
 
-      const res = await api.post("/messages/me", {
+      await api.post("/messages/me", {
         text: text.trim(),
       });
 
-      setMessages((prev) => [...prev, res.data.chatMessage]);
       setText("");
+      await fetchConversation(false);
+    } catch (error) {
+      console.log(error);
     } finally {
       setSending(false);
     }
@@ -75,6 +97,7 @@ const MyChatPage = () => {
             <h1 className="text-2xl font-black">
               {coach?.fullName || "Coach"}
             </h1>
+
             <p className="text-sm text-zinc-500">
               Votre coach personnel
             </p>
@@ -93,7 +116,9 @@ const MyChatPage = () => {
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-red-600/15 text-red-400">
                 <MessageCircle size={30} />
               </div>
+
               <p className="font-black">Aucun message</p>
+
               <p className="mt-1 text-sm text-zinc-500">
                 Écris à ton coach pour commencer.
               </p>
@@ -116,6 +141,7 @@ const MyChatPage = () => {
                   }`}
                 >
                   <p className="leading-relaxed">{msg.text}</p>
+
                   <p
                     className={`mt-2 text-[11px] ${
                       isMe ? "text-white/60" : "text-zinc-500"
@@ -131,6 +157,8 @@ const MyChatPage = () => {
             );
           })
         )}
+
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="border-t border-white/10 bg-black/40 p-5">
