@@ -12,17 +12,18 @@ import {
   Zap,
 } from "lucide-react";
 
-const API_URL = "https://zmcoachingbackend.onrender.com/api";
-
 const CheckInsPage = () => {
   const [checkIns, setCheckIns] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [feedbackText, setFeedbackText] = useState<Record<string, string>>({});
+  const [sendingFeedback, setSendingFeedback] = useState<Record<string, boolean>>(
+    {}
+  );
 
   const fetchCheckIns = async () => {
     try {
       const res = await api.get("/checkins/admin");
-      setCheckIns(res.data.checkIns);
+      setCheckIns(res.data.checkIns || []);
     } catch (error) {
       console.log(error);
     } finally {
@@ -37,18 +38,36 @@ const CheckInsPage = () => {
   const sendFeedback = async (id: string) => {
     const feedback = feedbackText[id];
 
-    if (!feedback?.trim()) return;
+    if (!feedback?.trim() || sendingFeedback[id]) return;
 
-    await api.patch(`/checkins/${id}/feedback`, {
-      feedback,
-    });
+    try {
+      setSendingFeedback((prev) => ({
+        ...prev,
+        [id]: true,
+      }));
 
-    setFeedbackText({
-      ...feedbackText,
-      [id]: "",
-    });
+      const res = await api.patch(`/checkins/${id}/feedback`, {
+        feedback: feedback.trim(),
+      });
 
-    fetchCheckIns();
+      setCheckIns((prev) =>
+        prev.map((item) =>
+          item._id === id ? res.data.checkIn : item
+        )
+      );
+
+      setFeedbackText((prev) => ({
+        ...prev,
+        [id]: "",
+      }));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSendingFeedback((prev) => ({
+        ...prev,
+        [id]: false,
+      }));
+    }
   };
 
   const remove = async (id: string) => {
@@ -81,7 +100,7 @@ const CheckInsPage = () => {
 
         <p className="text-zinc-400 mt-2">
           Suivi envoyé par les clients: poids, énergie, sommeil, notes, photos
-          et feedback coach.
+          et discussion coach.
         </p>
       </div>
 
@@ -117,130 +136,170 @@ const CheckInsPage = () => {
           </div>
         ) : (
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {checkIns.map((checkIn) => (
-              <article
-                key={checkIn._id}
-                className="rounded-[2rem] border border-white/10 bg-black/50 p-6"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-red-400 text-sm font-bold">
-                      {new Date(checkIn.date).toLocaleDateString()}
-                    </p>
+            {checkIns.map((checkIn) => {
+              const feedbacks =
+                checkIn.feedbacks?.length > 0
+                  ? checkIn.feedbacks
+                  : checkIn.coachFeedback
+                  ? [
+                      {
+                        _id: "old-feedback",
+                        message: checkIn.coachFeedback,
+                        createdAt: checkIn.feedbackDate,
+                      },
+                    ]
+                  : [];
 
-                    <h3 className="text-3xl font-black mt-2">
-                      {checkIn.weight} kg
-                    </h3>
-                  </div>
-
-                  <button
-                    onClick={() => remove(checkIn._id)}
-                    className="rounded-2xl bg-red-600/10 border border-red-500/20 px-4 py-3 text-red-300 hover:bg-red-600 hover:text-white transition"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
-
-                <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                  <p className="font-black">
-                    {checkIn.user?.fullName || "Client"}
-                  </p>
-
-                  {checkIn.user?.email && (
-                    <a
-                      href={`mailto:${checkIn.user.email}`}
-                      className="mt-3 flex items-center gap-3 text-zinc-300 hover:text-red-400 transition"
-                    >
-                      <Mail size={17} />
-                      <span className="text-sm break-all">
-                        {checkIn.user.email}
-                      </span>
-                    </a>
-                  )}
-
-                  {checkIn.user?.phone && (
-                    <a
-                      href={`tel:${checkIn.user.phone}`}
-                      className="mt-2 flex items-center gap-3 text-zinc-300 hover:text-red-400 transition"
-                    >
-                      <Phone size={17} />
-                      <span className="text-sm">{checkIn.user.phone}</span>
-                    </a>
-                  )}
-                </div>
-
-                <div className="mt-5 grid grid-cols-2 gap-3">
-                  <MiniInfo
-                    icon={<Moon size={17} />}
-                    label="Sommeil"
-                    value={checkIn.sleep ? `${checkIn.sleep}/10` : "-"}
-                  />
-
-                  <MiniInfo
-                    icon={<Zap size={17} />}
-                    label="Énergie"
-                    value={checkIn.energy ? `${checkIn.energy}/10` : "-"}
-                  />
-                </div>
-
-                {checkIn.mood && (
-                  <p className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-zinc-300">
-                    Mood: {checkIn.mood}
-                  </p>
-                )}
-
-                {checkIn.notes && (
-                  <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
-                    <p className="text-xs text-red-300 font-bold mb-2">
-                      Notes client
-                    </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                      {checkIn.notes}
-                    </p>
-                  </div>
-                )}
-
-                <PhotoGrid checkIn={checkIn} />
-
-                <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                  <p className="text-sm font-black mb-3">Discussion coach</p>
-
-                  {checkIn.coachFeedback && (
-                    <div className="mb-4 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
-                      <p className="text-sm text-zinc-200 leading-relaxed whitespace-pre-line">
-                        {checkIn.coachFeedback}
+              return (
+                <article
+                  key={checkIn._id}
+                  className="rounded-[2rem] border border-white/10 bg-black/50 p-6"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-red-400 text-sm font-bold">
+                        {new Date(checkIn.date).toLocaleDateString()}
                       </p>
 
-                      {checkIn.feedbackDate && (
-                        <p className="text-xs text-red-300 mt-3">
-                          {new Date(checkIn.feedbackDate).toLocaleString()}
-                        </p>
-                      )}
+                      <h3 className="text-3xl font-black mt-2">
+                        {checkIn.weight} kg
+                      </h3>
+                    </div>
+
+                    <button
+                      onClick={() => remove(checkIn._id)}
+                      className="rounded-2xl bg-red-600/10 border border-red-500/20 px-4 py-3 text-red-300 hover:bg-red-600 hover:text-white transition"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+
+                  <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="font-black">
+                      {checkIn.user?.fullName || "Client"}
+                    </p>
+
+                    {checkIn.user?.email && (
+                      <a
+                        href={`mailto:${checkIn.user.email}`}
+                        className="mt-3 flex items-center gap-3 text-zinc-300 hover:text-red-400 transition"
+                      >
+                        <Mail size={17} />
+                        <span className="text-sm break-all">
+                          {checkIn.user.email}
+                        </span>
+                      </a>
+                    )}
+
+                    {checkIn.user?.phone && (
+                      <a
+                        href={`tel:${checkIn.user.phone}`}
+                        className="mt-2 flex items-center gap-3 text-zinc-300 hover:text-red-400 transition"
+                      >
+                        <Phone size={17} />
+                        <span className="text-sm">{checkIn.user.phone}</span>
+                      </a>
+                    )}
+                  </div>
+
+                  <div className="mt-5 grid grid-cols-2 gap-3">
+                    <MiniInfo
+                      icon={<Moon size={17} />}
+                      label="Sommeil"
+                      value={
+                        checkIn.sleep || checkIn.sleep === 0
+                          ? `${checkIn.sleep}/10`
+                          : "-"
+                      }
+                    />
+
+                    <MiniInfo
+                      icon={<Zap size={17} />}
+                      label="Énergie"
+                      value={
+                        checkIn.energy || checkIn.energy === 0
+                          ? `${checkIn.energy}/10`
+                          : "-"
+                      }
+                    />
+                  </div>
+
+                  {checkIn.mood && (
+                    <p className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-zinc-300">
+                      Mood: {checkIn.mood}
+                    </p>
+                  )}
+
+                  {checkIn.notes && (
+                    <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
+                      <p className="text-xs text-red-300 font-bold mb-2">
+                        Notes client
+                      </p>
+                      <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">
+                        {checkIn.notes}
+                      </p>
                     </div>
                   )}
 
-                  <textarea
-                    value={feedbackText[checkIn._id] || ""}
-                    onChange={(e) =>
-                      setFeedbackText({
-                        ...feedbackText,
-                        [checkIn._id]: e.target.value,
-                      })
-                    }
-                    placeholder="Écrire un feedback pour ce client..."
-                    className="w-full min-h-24 rounded-2xl bg-black/60 border border-white/10 px-4 py-3 outline-none focus:border-red-500 text-sm resize-none"
-                  />
+                  <PhotoGrid checkIn={checkIn} />
 
-                  <button
-                    onClick={() => sendFeedback(checkIn._id)}
-                    className="mt-3 w-full rounded-2xl bg-red-600 py-3 font-black hover:bg-red-700 transition flex items-center justify-center gap-2"
-                  >
-                    <Send size={17} />
-                    Envoyer feedback
-                  </button>
-                </div>
-              </article>
-            ))}
+                  <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-black mb-3">Discussion coach</p>
+
+                    {feedbacks.length > 0 && (
+                      <div className="mb-4 space-y-3">
+                        {feedbacks.map((item: any, index: number) => (
+                          <div
+                            key={item._id || index}
+                            className="rounded-2xl border border-red-500/20 bg-red-500/10 p-4"
+                          >
+                            <p className="text-xs text-red-300 font-bold mb-2">
+                              Feedback coach #{index + 1}
+                            </p>
+
+                            <p className="text-sm text-zinc-200 leading-relaxed whitespace-pre-line">
+                              {item.message}
+                            </p>
+
+                            {item.createdAt && (
+                              <p className="text-xs text-zinc-500 mt-3">
+                                {new Date(item.createdAt).toLocaleString()}
+                              </p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <textarea
+                      value={feedbackText[checkIn._id] || ""}
+                      onChange={(e) =>
+                        setFeedbackText({
+                          ...feedbackText,
+                          [checkIn._id]: e.target.value,
+                        })
+                      }
+                      placeholder="Écrire un feedback pour ce client..."
+                      className="w-full min-h-24 rounded-2xl bg-black/60 border border-white/10 px-4 py-3 outline-none focus:border-red-500 text-sm resize-none"
+                    />
+
+                    <button
+                      onClick={() => sendFeedback(checkIn._id)}
+                      disabled={
+                        sendingFeedback[checkIn._id] ||
+                        !feedbackText[checkIn._id]?.trim()
+                      }
+                      className="mt-3 w-full rounded-2xl bg-red-600 py-3 font-black hover:bg-red-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Send size={17} />
+                      {sendingFeedback[checkIn._id]
+                        ? "Envoi..."
+                        : "Envoyer feedback"}
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         )}
       </section>
