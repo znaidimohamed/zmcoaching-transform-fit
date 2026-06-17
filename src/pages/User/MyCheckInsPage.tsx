@@ -6,8 +6,6 @@ import {
   ClipboardCheck,
   Zap,
   Moon,
-  Trash2,
-  Weight,
 } from "lucide-react";
 
 const API_URL = "https://zmcoachingbackend.onrender.com/api";
@@ -32,7 +30,7 @@ const MyCheckInsPage = () => {
   const fetchCheckIns = async () => {
     try {
       const res = await api.get("/checkins/me");
-      setCheckIns(res.data.checkIns);
+      setCheckIns(res.data.checkIns || []);
     } catch (error) {
       console.log(error);
     } finally {
@@ -123,14 +121,14 @@ const MyCheckInsPage = () => {
               label="Date"
               type="date"
               value={form.date}
-              onChange={(v) => setForm({ ...form, date: v })}
+              onChange={(v: string) => setForm({ ...form, date: v })}
             />
 
             <Field
               label="Poids"
               type="number"
               value={form.weight}
-              onChange={(v) => setForm({ ...form, weight: v })}
+              onChange={(v: string) => setForm({ ...form, weight: v })}
               placeholder="Ex: 78"
               required
             />
@@ -139,7 +137,7 @@ const MyCheckInsPage = () => {
               label="Sommeil /10"
               type="number"
               value={form.sleep}
-              onChange={(v) => setForm({ ...form, sleep: v })}
+              onChange={(v: string) => setForm({ ...form, sleep: v })}
               placeholder="Ex: 7"
             />
 
@@ -147,14 +145,14 @@ const MyCheckInsPage = () => {
               label="Énergie /10"
               type="number"
               value={form.energy}
-              onChange={(v) => setForm({ ...form, energy: v })}
+              onChange={(v: string) => setForm({ ...form, energy: v })}
               placeholder="Ex: 8"
             />
 
             <Field
               label="Mood"
               value={form.mood}
-              onChange={(v) => setForm({ ...form, mood: v })}
+              onChange={(v: string) => setForm({ ...form, mood: v })}
               placeholder="Ex: motivé / fatigué"
             />
 
@@ -173,19 +171,25 @@ const MyCheckInsPage = () => {
 
             <PhotoInput
               label="Photo face"
-              onChange={(file) => setForm({ ...form, frontPhoto: file })}
+              onChange={(file: File | null) =>
+                setForm({ ...form, frontPhoto: file })
+              }
               file={form.frontPhoto}
             />
 
             <PhotoInput
               label="Photo profil"
-              onChange={(file) => setForm({ ...form, sidePhoto: file })}
+              onChange={(file: File | null) =>
+                setForm({ ...form, sidePhoto: file })
+              }
               file={form.sidePhoto}
             />
 
             <PhotoInput
               label="Photo dos"
-              onChange={(file) => setForm({ ...form, backPhoto: file })}
+              onChange={(file: File | null) =>
+                setForm({ ...form, backPhoto: file })
+              }
               file={form.backPhoto}
             />
 
@@ -200,9 +204,7 @@ const MyCheckInsPage = () => {
         </form>
 
         <div className="rounded-[2rem] border border-red-500/20 bg-gradient-to-br from-red-950/30 to-black p-6 shadow-2xl">
-          <h3 className="text-2xl font-black mb-4">
-            Conseils check-in
-          </h3>
+          <h3 className="text-2xl font-black mb-4">Conseils check-in</h3>
 
           <div className="space-y-4 text-zinc-300">
             {[
@@ -302,10 +304,23 @@ const PhotoInput = ({ label, onChange, file }: any) => (
 
 const CheckInCard = ({ checkIn }: any) => {
   const photos = [
-    checkIn.frontPhoto,
-    checkIn.sidePhoto,
-    checkIn.backPhoto,
-  ].filter(Boolean);
+    { label: "Face", url: checkIn.frontPhoto },
+    { label: "Profil", url: checkIn.sidePhoto },
+    { label: "Dos", url: checkIn.backPhoto },
+  ].filter((photo) => photo.url);
+
+  const feedbacks =
+    checkIn.feedbacks?.length > 0
+      ? checkIn.feedbacks
+      : checkIn.coachFeedback
+      ? [
+          {
+            _id: "old-feedback",
+            message: checkIn.coachFeedback,
+            createdAt: checkIn.feedbackDate,
+          },
+        ]
+      : [];
 
   return (
     <article className="rounded-[2rem] border border-white/10 bg-black/50 p-6">
@@ -316,8 +331,23 @@ const CheckInCard = ({ checkIn }: any) => {
       <h3 className="text-3xl font-black mt-2">{checkIn.weight} kg</h3>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
-        <MiniInfo icon={<Moon size={17} />} label="Sommeil" value={checkIn.sleep ? `${checkIn.sleep}/10` : "-"} />
-        <MiniInfo icon={<Zap size={17} />} label="Énergie" value={checkIn.energy ? `${checkIn.energy}/10` : "-"} />
+        <MiniInfo
+          icon={<Moon size={17} />}
+          label="Sommeil"
+          value={
+            checkIn.sleep || checkIn.sleep === 0 ? `${checkIn.sleep}/10` : "-"
+          }
+        />
+
+        <MiniInfo
+          icon={<Zap size={17} />}
+          label="Énergie"
+          value={
+            checkIn.energy || checkIn.energy === 0
+              ? `${checkIn.energy}/10`
+              : "-"
+          }
+        />
       </div>
 
       {checkIn.mood && (
@@ -327,53 +357,67 @@ const CheckInCard = ({ checkIn }: any) => {
       )}
 
       {checkIn.notes && (
-        <p className="mt-4 text-sm text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-sm text-zinc-400 leading-relaxed whitespace-pre-line">
           {checkIn.notes}
         </p>
       )}
 
       {photos.length > 0 && (
         <div className="mt-5 grid grid-cols-3 gap-2">
-          {photos.map((photo: string, index: number) => {
-            const imageUrl = photo.startsWith("http")
-              ? photo
-              : `${API_URL}${photo}`;
+          {photos.map((photo: any) => {
+            const imageUrl = photo.url.startsWith("http")
+              ? photo.url
+              : `${API_URL}${photo.url}`;
 
             return (
               <a
-                key={index}
+                key={photo.label}
                 href={imageUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="aspect-square rounded-2xl overflow-hidden border border-white/10"
+                className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 group"
               >
                 <img
                   src={imageUrl}
-                  alt="check-in"
-                  className="h-full w-full object-cover"
+                  alt={photo.label}
+                  className="h-full w-full object-cover group-hover:scale-110 transition duration-500"
                 />
+
+                <span className="absolute left-2 top-2 rounded-full bg-black/70 px-2 py-1 text-[10px] font-black">
+                  {photo.label}
+                </span>
               </a>
             );
           })}
         </div>
       )}
-      {checkIn.coachFeedback && (
-        <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
-            <p className="text-xs text-red-300 font-bold mb-2">
-            Feedback coach
-            </p>
 
-            <p className="text-sm text-zinc-300 leading-relaxed">
-            {checkIn.coachFeedback}
-            </p>
+      {feedbacks.length > 0 && (
+        <div className="mt-5 space-y-3">
+          <p className="text-sm font-black text-white">Feedback coach</p>
 
-            {checkIn.feedbackDate && (
-            <p className="text-xs text-red-300 mt-3">
-                {new Date(checkIn.feedbackDate).toLocaleString()}
-            </p>
-            )}
+          {feedbacks.map((item: any, index: number) => (
+            <div
+              key={item._id || index}
+              className="rounded-2xl border border-red-500/20 bg-red-500/10 p-4"
+            >
+              <p className="text-xs text-red-300 font-bold mb-2">
+                Feedback coach #{index + 1}
+              </p>
+
+              <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">
+                {item.message}
+              </p>
+
+              {item.createdAt && (
+                <p className="text-xs text-red-300 mt-3">
+                  {new Date(item.createdAt).toLocaleString()}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
-        )}
+      )}
     </article>
   );
 };
