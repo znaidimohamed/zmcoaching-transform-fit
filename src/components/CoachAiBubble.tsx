@@ -8,7 +8,9 @@ import {
 
 import { motion, AnimatePresence } from "framer-motion";
 
-import { sendCoachAiMessage } from "@/lib/api";
+import axios from "axios";
+
+import { sendCoachAiMessage, warmUpBackend } from "@/lib/api";
 
 type ChatMessage = {
   role: "user" | "ai";
@@ -28,6 +30,11 @@ const CoachAiBubble = () => {
       text: "Hey 👋 أنا Coach AI. اسألني على training, nutrition ولا كيفاش تبدأ.",
     },
   ]);
+
+  // Wake the backend up as soon as the chat is opened
+  useEffect(() => {
+    if (open) warmUpBackend();
+  }, [open]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
@@ -55,19 +62,44 @@ const CoachAiBubble = () => {
     try {
       const data = await sendCoachAiMessage(userMessage);
 
+      const reply =
+        data?.reply ?? data?.message ?? data?.response ?? data?.answer;
+
+      if (typeof reply !== "string" || !reply.trim()) {
+        throw new Error("Empty or unexpected reply from /ai/chat");
+      }
+
       setMessages((prev) => [
         ...prev,
         {
           role: "ai",
-          text: data.reply,
+          text: reply,
         },
       ]);
-    } catch {
+    } catch (err) {
+      // Keep the real error visible in the browser console (F12) for debugging
+      console.error("Coach AI error:", err);
+
+      let text = "صار مشكل صغير. عاود جرّب بعد شوية.";
+
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status;
+
+        if (status === 401 || status === 403) {
+          text = "لازم تعمل تسجيل دخول باش تستعمل Coach AI.";
+        } else if (err.code === "ECONNABORTED" || !err.response) {
+          text =
+            "السيرفر يوّ مازال يسخن 🔥 عاود ابعث الرسالة بعد 30 ثانية.";
+        } else if (status === 429) {
+          text = "برشا رسائل في وقت قصير. استنى شوية وعاود.";
+        }
+      }
+
       setMessages((prev) => [
         ...prev,
         {
           role: "ai",
-          text: "صار مشكل صغير. عاود جرّب بعد شوية.",
+          text,
         },
       ]);
     } finally {
