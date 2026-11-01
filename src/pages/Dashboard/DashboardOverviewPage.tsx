@@ -25,11 +25,34 @@ const DashboardOverviewPage = () => {
       setLoading(true);
       setError("");
 
-      const res = await api.get("/dashboard/admin");
+      // 60s timeout + one retry: the Render server may be asleep (cold start)
+      let res;
+      try {
+        res = await api.get("/dashboard/admin", { timeout: 60000 });
+      } catch (firstError: any) {
+        const s = firstError?.response?.status;
+        if (firstError?.response && s !== 502 && s !== 503 && s !== 504) {
+          throw firstError;
+        }
+        await new Promise((r) => setTimeout(r, 3000));
+        res = await api.get("/dashboard/admin", { timeout: 60000 });
+      }
+
       setStats(res.data.stats);
-    } catch (error) {
-      console.log(error);
-      setError("Impossible de charger les statistiques du dashboard.");
+    } catch (error: any) {
+      console.error("Dashboard error:", error);
+
+      const status = error?.response?.status;
+
+      if (status === 403) {
+        setError("Accès refusé : ce compte n'est pas administrateur.");
+      } else if (!error?.response) {
+        setError(
+          "Le serveur met du temps à répondre (il se réveille). Réessayez dans 30 secondes."
+        );
+      } else {
+        setError("Impossible de charger les statistiques du dashboard.");
+      }
     } finally {
       setLoading(false);
     }

@@ -14,6 +14,29 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Expired / invalid token (JWT lasts 7 days): clear the stale session and go to login,
+// instead of staying "logged in" with a dead token and seeing errors everywhere.
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error?.response?.status;
+    const url: string = error?.config?.url ?? "";
+    const hadToken = !!localStorage.getItem("token");
+    const isAuthCall = url.includes("/auth/");
+
+    if (status === 401 && hadToken && !isAuthCall) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
