@@ -51,7 +51,15 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white px-6">
       <Card className="w-full max-w-md bg-white/[0.04] border-white/10 text-white backdrop-blur-xl rounded-[2rem]">
-        <CardHeader>
+        <CardHeader className="flex flex-col items-center">
+          <img
+            src="/zm-logo-icone.png"
+            alt="ZM Coaching"
+            width={64}
+            height={64}
+            loading="lazy"
+            className="h-16 w-16 mb-3 rounded-2xl object-cover shadow-lg shadow-black/50"
+          />
           <CardTitle className="text-3xl text-center font-black">
             Créer un compte
           </CardTitle>

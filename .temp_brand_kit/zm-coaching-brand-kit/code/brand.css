@@ -1,0 +1,28 @@
+/* ZM Coaching – variables de marque */
+:root{
+  /* Rouge (couleurs du site) */
+  --zm-red-400:#F87171;
+  --zm-red-500:#EF4444;   /* texte accent, ex. "transformation" */
+  --zm-red-600:#DC2626;   /* boutons, liens */
+  --zm-red-700:#B91C1C;
+  --zm-red-900:#7F1D1D;
+  /* M du logo (rouge foncé) */
+  --zm-m-top:#D42A2A;
+  --zm-m-bottom:#8A1212;
+  /* Noir / fonds */
+  --zm-black:#0A0606;      /* Z noir carbone */
+  --zm-bg-0:#0A0303;       /* fond principal */
+  --zm-bg-1:#140C0C;
+  --zm-bg-2:#1C0505;
+  --zm-card:#220E0E;
+  /* Neutres */
+  --zm-white:#FFFFFF;
+  --zm-silver:#E2DEDE;
+  --zm-grey:#A9A5A5;
+  --zm-text-muted:#BFA9A9;
+  /* Typo */
+  --zm-font:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
+/* Logo dans la navbar (sur fond sombre) */
+.zm-logo{display:flex;align-items:center;gap:12px;font-family:var(--zm-font);font-weight:800;color:var(--zm-white)}
+.zm-logo img{width:44px;height:44px;border-radius:12px;display:block}
