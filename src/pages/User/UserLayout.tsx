@@ -12,11 +12,14 @@ import {
   X,
   Home,
   MessageCircle,
+  ClipboardList,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
+  { to: "/user/performance", label: "Performance", icon: Target },
+  { to: "/user/questionnaire", label: "Questionnaire", icon: ClipboardList },
   { to: "/user/nutrition", label: "Nutrition", icon: Apple },
   { to: "/user/training", label: "Training", icon: Dumbbell },
   { to: "/user/schedule", label: "Planning", icon: CalendarDays },
@@ -49,9 +52,14 @@ const UserLayout = () => {
             onClick={() => navigate("/")}
             className="group flex shrink-0 items-center gap-3 text-left"
           >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-900 shadow-lg shadow-red-900/30 transition group-hover:scale-105">
-              <Target size={24} />
-            </div>
+            <img
+              src="/zm-logo-icone.png"
+              alt="ZM Coaching"
+              width={48}
+              height={48}
+              loading="lazy"
+              className="h-12 w-12 shrink-0 rounded-2xl object-cover shadow-lg shadow-red-900/30 transition group-hover:scale-105"
+            />
 
             <div>
               <h1 className="text-lg font-black leading-none sm:text-2xl">

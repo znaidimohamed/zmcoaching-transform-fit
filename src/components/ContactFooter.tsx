@@ -192,11 +192,15 @@ const ContactFooterSection = () => {
         <footer className="border-t border-white/10 pt-8">
           <div className="grid md:grid-cols-[1.5fr_1fr_1fr] gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-11 w-11 rounded-2xl bg-red-600 flex items-center justify-center">
-                  <Sparkles size={22} />
-                </div>
-                <h3 className="text-2xl font-black">ZM Coaching</h3>
+              <div className="mb-4">
+                <img
+                  src="/zm-logo-monochrome-blanc.svg"
+                  alt="ZM Coaching"
+                  width={180}
+                  height={48}
+                  loading="lazy"
+                  className="h-12 w-auto object-contain"
+                />
               </div>
 
               <p className="text-zinc-400 max-w-md">

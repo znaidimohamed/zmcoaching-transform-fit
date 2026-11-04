@@ -67,8 +67,19 @@ const UsersPage = () => {
               key={user.id}
               className="rounded-2xl border border-white/10 bg-white/[0.04] p-6"
             >
-              <h3 className="text-xl font-bold">{user.fullName}</h3>
-              <p className="text-zinc-400 text-sm">{user.email}</p>
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="text-xl font-bold">{user.fullName}</h3>
+                  <p className="text-zinc-400 text-sm">{user.email}</p>
+                </div>
+
+                <a
+                  href="/dashboard/questionnaires"
+                  className="rounded-full bg-red-500/10 border border-red-500/30 px-2.5 py-1 text-[11px] font-bold text-red-400 hover:bg-red-600 hover:text-white transition"
+                >
+                  Questionnaire ✓
+                </a>
+              </div>
 
               <div className="mt-4 text-sm text-zinc-400 space-y-1">
                 <p>Age: {user.age || "-"}</p>

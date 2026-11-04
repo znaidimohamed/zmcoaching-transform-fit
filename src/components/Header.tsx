@@ -84,9 +84,13 @@ const Header = () => {
             onClick={() => scrollToSection("accueil")}
             className="group flex items-center gap-3"
           >
-            <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-900 shadow-lg shadow-red-900/30 transition-all duration-300 group-hover:scale-105">
-              <Target className="h-6 w-6 text-white" />
-            </div>
+            <img
+              src="/zm-logo-icone-rouge.png"
+              alt="ZM Coaching"
+              width={48}
+              height={48}
+              className="h-11 w-11 sm:h-12 sm:w-12 rounded-2xl object-cover shadow-lg shadow-red-900/30 transition-all duration-300 group-hover:scale-105"
+            />
 
             <div className="text-left">
               <div className="text-lg sm:text-xl font-black text-white leading-none">
