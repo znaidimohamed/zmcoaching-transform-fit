@@ -11,36 +11,9 @@ import { motion } from "framer-motion";
 
 const API_URL = "https://zmcoachingbackend.onrender.com/api";
 
-const DEFAULT_TRANSFORMATIONS = [
-  {
-    _id: "default-trans-1",
-    name: "Ahmed B.",
-    title: "Moins 14kg & Prise de Muscle",
-    description: "Transformation impressionnante en 3 mois avec le Pack Transformation. Discipline de fer et plan alimentaire adapté.",
-    beforeImage: "/lovable-uploads/22a7dc04-5f44-46b4-8854-5c840f92a1bf.png",
-    afterImage: "/lovable-uploads/65076046-0d01-48b5-a21b-9d5815dfd5bb.png",
-  },
-  {
-    _id: "default-trans-2",
-    name: "Youssef M.",
-    title: "Prise de Masse Propre (+8kg)",
-    description: "Passé de 65kg à 73kg de muscle sec en 4 mois sans prise de gras inutile grâce aux principes d'hypertrophie.",
-    beforeImage: "/lovable-uploads/65kg (1).png",
-    afterImage: "/lovable-uploads/dac3d974-ebd8-4d53-9540-da10a8673da0.png",
-  },
-  {
-    _id: "default-trans-3",
-    name: "Saber K.",
-    title: "Finish Hyrox Competition",
-    description: "Préparation complète de 12 semaines pour le challenge HYROX. Temps final sous la barre des 1h15.",
-    beforeImage: "/lovable-uploads/be154f7c-292a-4aae-9c57-cbe6fd581b1b.png",
-    afterImage: "/lovable-uploads/Hyrox.JPG",
-  },
-];
-
 const TransformationsSection = () => {
-  const [data, setData] = useState<any[]>(DEFAULT_TRANSFORMATIONS);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -49,14 +22,16 @@ const TransformationsSection = () => {
   useEffect(() => {
     const fetchTransformations = async () => {
       try {
+        setLoading(true);
         setError("");
+
         const res = await api.get("/transformations");
-        if (res.data.transformations && res.data.transformations.length > 0) {
-          setData(res.data.transformations);
-        }
+        setData(res.data.transformations || []);
       } catch (err) {
         console.log(err);
-        // keep DEFAULT_TRANSFORMATIONS fallback
+        setError("Impossible de charger les transformations.");
+      } finally {
+        setLoading(false);
       }
     };
 

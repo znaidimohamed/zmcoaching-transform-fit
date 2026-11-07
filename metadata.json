@@ -1,7 +1,0 @@
-{
-  "name": "ZM Coaching - Coach Sportif en Ligne",
-  "description": "Transformez votre corps avec Mohamed Znaidy, coach sportif professionnel. Programmes personnalisés, nutrition adaptée, suivi individuel.",
-  "request_capabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}

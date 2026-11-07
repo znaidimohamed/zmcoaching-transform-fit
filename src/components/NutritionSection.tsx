@@ -2,62 +2,13 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { Apple, Sparkles } from "lucide-react";
 
-const DEFAULT_NUTRITION_COURSES = [
-  {
-    _id: "default-nutri-1",
-    title: "Plan Prise de Masse Propre",
-    description: "Guide complet de nutrition pour développer de la masse musculaire sans accumuler de graisses inutiles.",
-    price: "59 TND",
-    isPopular: false,
-    features: [
-      "Calcul précis des macronutriments (Protéines/Glucides/Lipides)",
-      "Exemples de repas sains & faciles à préparer",
-      "Guide de supplémentation efficace",
-      "Calculateur de besoin calorique journalier",
-    ],
-  },
-  {
-    _id: "default-nutri-2",
-    title: "Sèche & Définition Musculaire",
-    description: "Méthode éprouvée de déficit calorique progressif pour faire sortir la définition musculaire sans perdre de force.",
-    price: "69 TND",
-    isPopular: true,
-    features: [
-      "Plan alimentaire personnalisé anti-faim",
-      "Recettes brûle-graisses gourmandes",
-      "Gestion des cheat meals & sorties",
-      "Stratégies d'hydratation et rétention d'eau",
-    ],
-  },
-  {
-    _id: "default-nutri-3",
-    title: "Guide de Recettes Fitness",
-    description: "E-book complet avec plus de 30 recettes protéinées, équilibrées et adaptées à la cuisine quotidienne.",
-    price: "35 TND",
-    isPopular: false,
-    features: [
-      "30+ recettes rapides (Sucré & Salé)",
-      "Tableau des calories & macros par portion",
-      "Liste de courses économiques",
-      "Idées de collations et pré-workout",
-    ],
-  },
-];
-
 const NutritionSection = () => {
-  const [courses, setCourses] = useState<any[]>(DEFAULT_NUTRITION_COURSES);
+  const [courses, setCourses] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
-      try {
-        const res = await api.get("/courses?category=nutrition");
-        if (res.data.courses && res.data.courses.length > 0) {
-          setCourses(res.data.courses);
-        }
-      } catch (err) {
-        console.log(err);
-        // keep DEFAULT_NUTRITION_COURSES fallback
-      }
+      const res = await api.get("/courses?category=nutrition");
+      setCourses(res.data.courses);
     };
 
     fetchCourses();

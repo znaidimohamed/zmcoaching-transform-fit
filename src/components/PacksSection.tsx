@@ -12,70 +12,25 @@ import {
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
-const DEFAULT_PACKS = [
-  {
-    _id: "default-pack-solo",
-    name: "Pack Solo",
-    subtitle: "Programme sur-mesure pour s'entraîner en toute autonomie.",
-    price: "90 TND",
-    duration: "/ mois",
-    isPopular: false,
-    features: [
-      "Programme d'entraînement personnalisé",
-      "Plan nutritionnel adapté",
-      "Fiches d'exercices & conseils",
-      "Support par email",
-    ],
-  },
-  {
-    _id: "default-pack-transformation",
-    name: "Pack Transformation",
-    subtitle: "Accompagnement complet 1-sur-1 pour des résultats garantis.",
-    price: "250 TND",
-    duration: "/ 3 mois",
-    isPopular: true,
-    features: [
-      "Programme entraînement & nutrition 100% sur mesure",
-      "Suivi WhatsApp quotidien",
-      "Bilan & check-in hebdomadaire avec photos",
-      "Ajustements illimités des programmes",
-      "Accès prioritaire Coach AI",
-    ],
-  },
-  {
-    _id: "default-pack-elite",
-    name: "Pack Elite & Hyrox",
-    subtitle: "Coaching haute performance & préparation compétition.",
-    price: "450 TND",
-    duration: "/ 6 mois",
-    isPopular: false,
-    features: [
-      "Prise en charge 360° physique & mental",
-      "Préparation spécifique HYROX & Race Ready",
-      "Analyse biomécanique & conseils posturales",
-      "Support VIP 24/7 sur WhatsApp",
-      "Guide suppléments & récupération",
-    ],
-  },
-];
-
 const PacksSection = () => {
-  const [packs, setPacks] = useState<any[]>(DEFAULT_PACKS);
-  const [loading, setLoading] = useState(false);
+  const [packs, setPacks] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [buyingId, setBuyingId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPacks = async () => {
       try {
+        setLoading(true);
         setError("");
+
         const res = await api.get("/packs");
-        if (res.data.packs && res.data.packs.length > 0) {
-          setPacks(res.data.packs);
-        }
+        setPacks(res.data.packs || []);
       } catch (error) {
         console.log(error);
-        // keep DEFAULT_PACKS fallback
+        setError("Impossible de charger les packs pour le moment.");
+      } finally {
+        setLoading(false);
       }
     };
 
