@@ -18,8 +18,6 @@ import {
   Target,
   LayoutDashboard,
   MessageCircle,
-  Activity,
-  ClipboardList,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
@@ -27,8 +25,6 @@ import NotificationBell from "@/components/NotificationBell";
 
 const navItems = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { to: "/dashboard/performance", label: "Performance", icon: Activity },
-  { to: "/dashboard/questionnaires", label: "Questionnaires", icon: ClipboardList },
   { to: "/dashboard/users", label: "Utilisateurs", icon: Users },
   { to: "/dashboard/chat", label: "Messages", icon: MessageCircle },
   { to: "/dashboard/transformations", label: "Transformations", icon: Image },
@@ -63,14 +59,9 @@ const DashboardLayout = () => {
   const SidebarContent = () => (
     <>
       <div className="mb-8 flex items-center gap-4">
-        <img
-          src="/zm-logo-icone.png"
-          alt="ZM Coaching"
-          width={52}
-          height={52}
-          loading="lazy"
-          className="h-13 w-13 rounded-2xl object-cover shadow-lg shadow-red-900/30"
-        />
+        <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-900 shadow-lg shadow-red-900/30">
+          <Target size={26} />
+        </div>
 
         <div>
           <h1 className="text-2xl font-black leading-none">ZM Coaching</h1>
@@ -151,14 +142,9 @@ const DashboardLayout = () => {
             onClick={() => navigate("/dashboard")}
             className="flex items-center gap-3"
           >
-            <img
-              src="/zm-logo-icone.png"
-              alt="ZM Coaching"
-              width={44}
-              height={44}
-              loading="lazy"
-              className="h-11 w-11 rounded-2xl object-cover"
-            />
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-900">
+              <Target size={22} />
+            </div>
 
             <div className="text-left">
               <p className="font-black leading-none">ZM Coaching</p>

@@ -3,70 +3,23 @@ import { api } from "@/lib/api";
 import { Dumbbell, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
-const DEFAULT_TRAINING_COURSES = [
-  {
-    _id: "default-course-1",
-    title: "Full Body Débutant",
-    description: "Programme complet sur 4 semaines pour construire des bases solides et apprendre l'exécution parfaite des mouvements.",
-    level: "Débutant",
-    duration: "4 Semaines",
-    price: "49 TND",
-    isPopular: false,
-    features: [
-      "Programme PDF & Vidéos guidées",
-      "Structure 3 séances / semaine",
-      "Guide d'échauffement & étirements",
-      "Conseils de surcharge progressive",
-    ],
-  },
-  {
-    _id: "default-course-2",
-    title: "PPL + Arnold Split (5 Jours)",
-    description: "Combinaison ultime Push-Pull-Legs & Arnold Split pour maximiser l'hypertrophie musculaire et la masse physique.",
-    level: "Intermédiaire",
-    duration: "8 Semaines",
-    price: "89 TND",
-    isPopular: true,
-    features: [
-      "Programme intensif 5 jours",
-      "Techniques d'amplification d'intensité",
-      "Fiche de suivi des charges",
-      "Accès aux fiches de mouvements PDF",
-    ],
-  },
-  {
-    _id: "default-course-3",
-    title: "HIIT Fat Burn & Cardio",
-    description: "Entraînement cardio métabolique à haute intensité pour brûler un maximum de graisses et booster ton endurance.",
-    level: "Tous Niveaux",
-    duration: "3 Semaines",
-    price: "39 TND",
-    isPopular: false,
-    features: [
-      "Séances rapides de 20-30 min",
-      "Exercices sans matériel ou léger",
-      "Plan de cardio adaptatif",
-      "Fiche d'intensité cardiaque",
-    ],
-  },
-];
-
 const TrainingSection = () => {
-  const [courses, setCourses] = useState<any[]>(DEFAULT_TRAINING_COURSES);
-  const [loading, setLoading] = useState(false);
+  const [courses, setCourses] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        setError("");
+        setLoading(true);
+
         const res = await api.get("/courses?category=training");
-        if (res.data.courses && res.data.courses.length > 0) {
-          setCourses(res.data.courses);
-        }
+
+        setCourses(res.data.courses || []);
       } catch (err) {
-        console.log(err);
-        // keep DEFAULT_TRAINING_COURSES fallback
+        setError("Impossible de charger les programmes.");
+      } finally {
+        setLoading(false);
       }
     };
 

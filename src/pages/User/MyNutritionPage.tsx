@@ -39,28 +39,6 @@ const MyNutritionPage = () => {
         </p>
       </div>
 
-      {/* QUESTIONNAIRE ONBOARDING BANNER */}
-      <div className="rounded-[2rem] border border-red-500/40 bg-gradient-to-r from-red-950/60 via-black to-black p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <div className="space-y-2 max-w-xl">
-          <span className="inline-flex items-center gap-2 rounded-full bg-red-600 px-3.5 py-1 text-xs font-black text-white">
-            Action requise
-          </span>
-          <h3 className="text-2xl font-black text-white">
-            Remplis ton Questionnaire d'Intégration Initial
-          </h3>
-          <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-            Pour que Coach Mohamed Znaidy prépare ton programme d'entraînement et ton plan de nutrition 100% sur-mesure, réponds au questionnaire en 7 étapes.
-          </p>
-        </div>
-
-        <a
-          href="/user/questionnaire"
-          className="shrink-0 rounded-2xl bg-gradient-to-r from-red-600 to-red-500 px-6 py-4 font-black text-sm text-white shadow-lg shadow-red-900/40 hover:scale-[1.03] transition"
-        >
-          Remplir mon questionnaire →
-        </a>
-      </div>
-
       {loading ? (
         <div className="text-zinc-400 py-12 text-center">
           Chargement...

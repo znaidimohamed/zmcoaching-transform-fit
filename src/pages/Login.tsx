@@ -52,15 +52,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="flex flex-col items-center">
-          <img
-            src="/zm-logo-icone.png"
-            alt="ZM Coaching"
-            width={64}
-            height={64}
-            loading="lazy"
-            className="h-16 w-16 mb-3 rounded-2xl object-cover shadow-lg shadow-black/50"
-          />
+        <CardHeader>
           <CardTitle className="text-2xl text-center">Connexion</CardTitle>
           <CardDescription className="text-center">
             Connectez-vous à votre compte

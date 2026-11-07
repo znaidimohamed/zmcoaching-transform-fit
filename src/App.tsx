@@ -24,18 +24,14 @@ import PurchaseRequestsPage from "./pages/Dashboard/PurchaseRequestsPage";
 import SchedulePage from "./pages/Dashboard/SchedulePage";
 import CheckInsPage from "./pages/Dashboard/CheckInsPage";
 import ChatPage from "./pages/Dashboard/ChatPage";
-import PerformancePage from "./pages/Dashboard/PerformancePage";
-import QuestionnairesPage from "./pages/Dashboard/QuestionnairesPage";
 
 import UserLayout from "./pages/User/UserLayout";
 import MyNutritionPage from "./pages/User/MyNutritionPage";
 import MyTrainingPage from "./pages/User/MyTrainingPage";
 import MyProgressPage from "./pages/User/MyProgressPage";
-import MyPerformancePage from "./pages/User/MyPerformancePage";
 import MySchedulePage from "./pages/User/MySchedulePage";
 import MyCheckInsPage from "./pages/User/MyCheckInsPage";
 import MyChatPage from "./pages/User/MyChatPage";
-import MyQuestionnairePage from "./pages/User/MyQuestionnairePage";
 
 const queryClient = new QueryClient();
 
@@ -70,10 +66,11 @@ const App = () => (
               <Route path="progress" element={<ProgressPage />} />
               <Route path="courses" element={<CoursesPage />} />
               <Route path="schedule" element={<SchedulePage />} />
-              <Route path="purchase-requests" element={<PurchaseRequestsPage />} />
+              <Route
+                path="purchase-requests"
+                element={<PurchaseRequestsPage />}
+              />
               <Route path="leads" element={<LeadsPage />} />
-              <Route path="performance" element={<PerformancePage />} />
-              <Route path="questionnaires" element={<QuestionnairesPage />} />
             </Route>
 
             <Route
@@ -84,9 +81,7 @@ const App = () => (
                 </ProtectedRoute>
               }
             >
-              <Route index element={<MyQuestionnairePage />} />
-              <Route path="questionnaire" element={<MyQuestionnairePage />} />
-              <Route path="performance" element={<MyPerformancePage />} />
+              <Route index element={<MyNutritionPage />} />
               <Route path="nutrition" element={<MyNutritionPage />} />
               <Route path="training" element={<MyTrainingPage />} />
               <Route path="schedule" element={<MySchedulePage />} />

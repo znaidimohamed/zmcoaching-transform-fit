@@ -57,16 +57,6 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,38,38,0.25),transparent_35%)]" />
-
-        {/* Discreet watermark logo */}
-        <img
-          src="/zm-logo-principal-sombre.png"
-          alt="ZM Coaching"
-          width={600}
-          height={200}
-          loading="lazy"
-          className="absolute right-5 top-1/2 -translate-y-1/2 opacity-10 max-w-[280px] sm:max-w-[320px] md:max-w-[500px] pointer-events-none select-none z-0"
-        />
       </div>
 
       {/* Floating Effects */}
@@ -91,7 +81,6 @@ const HeroSection = () => {
             }}
             transition={{
               duration: 0.5,
-              delay: 0.05,
             }}
             className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2 text-red-300 text-sm font-bold mb-8 backdrop-blur-xl"
           >
